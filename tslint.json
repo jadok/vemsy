@@ -1,11 +1,12 @@
 {
   "extends": [
-    "tslint-microsoft-contrib"
+    "tslint:latest",
   ],
   "rules": {
     "missing-jsdoc": false,
     "no-any": false,
     "semicolon": false,
-    "no-console": false
+    "no-console": false,
+    "no-align": false
   }
 }
