@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "tslint:latest"
+  ],
+  "rules": {
+    "missing-jsdoc": false,
+    "no-any": false,
+    "semicolon": false,
+    "no-console": false,
+    "no-align": false,
+    "no-var-requires": false,
+    "quotemark": [true, "single"],
+    "trailing-comma": false
+  }
+}
