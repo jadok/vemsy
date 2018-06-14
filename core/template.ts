@@ -11,7 +11,7 @@ const defaultString: string[] = []
  */
 const getAllFiles = (dir: fs.PathLike): string[] =>
   fs.readdirSync(dir).reduce((files: string[], file: string) => {
-    const name: string = path.join(<string>dir, file);
+    const name: string = path.join(dir as string, file);
     const isDirectory: boolean = fs.statSync(name).isDirectory();
 
     return isDirectory ? [...files, ...getAllFiles(name)] : [...files, name];
