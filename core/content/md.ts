@@ -7,13 +7,14 @@ import * as path from 'path'
 
 const markdown = require('markdown')
 
-interface IMarkdownExpressRequest extends Request {
+export interface IMarkdownExpressRequest extends Request {
   markdown: string
 }
 
 export const defineContentReader = (
   viewPath: string
 ) => (req: IMarkdownExpressRequest, res: Express.Response, next: Function) => {
+  // use the middleware if no file extension is provided
   if (req.originalUrl.indexOf('.') === -1) {
     fs.readFile(
       path.join(viewPath, req.originalUrl.toString() + '.md'),
@@ -21,7 +22,6 @@ export const defineContentReader = (
         if (err) {
           return next(new Error(err.toString()))
         }
-        // this is an extremely simple template engine
         const rendered = markdown.markdown.toHTML(content.toString())
         req.markdown = rendered
         return next();
