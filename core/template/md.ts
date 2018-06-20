@@ -15,8 +15,10 @@ export const defineContentReader = (
   viewPath: string
 ) => (req: IMarkdownExpressRequest, res: Express.Response, next: Function) => {
   if (req.originalUrl.indexOf('.') === -1) {
+    // generate a windows readable path
+    const filePath = viewPath.split('/').concat((req.originalUrl.toString() + '.md').split('/'))
     fs.readFile(
-      path.join(viewPath, req.originalUrl.toString() + '.md'),
+      path.join(...filePath),
       (err: NodeJS.ErrnoException, content: Buffer) => {
         if (err) {
           return next(new Error(err.toString()))
