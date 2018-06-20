@@ -10,6 +10,8 @@
     "no-align": false,
     "no-var-requires": false,
     "quotemark": [true, "single"],
-    "trailing-comma": false
+    "trailing-comma": false,
+    "ban-types": false,
+    "one-line": false
   }
 }
