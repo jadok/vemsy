@@ -1,3 +1,7 @@
 #!/bin/bash
 
-docker run -v `pwd`/dist:/app/dist -v `pwd`/app:/app/app -p 9999:9999 vemsy:latest
+CURRENT=$(pwd)
+DIST="$CURRENT/dist"
+APP="$CURRENT/app"
+
+docker run -d -v $DIST:/app/dist -v $APP:/app/app -p 9999:9999 vemsy:latest
