@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack --config webpack/webpack.config.js --watch --mode development",
     "sass": "sass app/styles/index.scss:public/css/index.css",
-    "pm2:start": "pm2 start pm2.json"
+    "pm2:start": "pm2 start pm2.json",
+    "doc": "typedoc --out doc/"
   },
   "repository": {
     "type": "git",
