@@ -1,7 +1,5 @@
 import app from './app'
 
-import * as path from 'path'
-
 const port: number = parseInt(process.env.PORT, 10) || 9999
 
 app.listen(port, () => {
