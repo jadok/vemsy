@@ -8,6 +8,7 @@
     "sass": "sass app/styles/index.scss:public/css/index.css",
     "pm2:start": "pm2 start pm2.json",
     "test": "mocha -r ts-node/register tests/**/*.spec.ts",
+    "benchmark": "ts-node benchmark/index.ts",
     "doc": "typedoc --out doc/"
   },
   "repository": {
