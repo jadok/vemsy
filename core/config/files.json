@@ -1,7 +1,0 @@
-{
-  "app_path": {
-    "contents": "./app/contents",
-    "themes": "./app/themes",
-    "views": "./app/views"
-  }
-}

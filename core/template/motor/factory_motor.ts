@@ -4,18 +4,14 @@ import TemplateMotor from './template_motor'
 import TwigMotor from './twig_motor'
 
 export interface IViewTemplate {
-  path: string
   motor: TemplateMotor
 }
 
-export const factoryMotor = (path: string, app: Express, viewPath: string): IViewTemplate | null => {
-  const extensionPosition = path.indexOf('.')
-  const extension = path.substr(extensionPosition)
-  switch (extension) {
-    case '.twig': {
+export const factoryMotor = (type: string, app: Express, viewPath: string): IViewTemplate | null => {
+  switch (type) {
+    case 'twig': {
       const factoryInstance = {
-        motor: new TwigMotor(app, viewPath),
-        path
+        motor: new TwigMotor(app, viewPath)
       }
       return factoryInstance
     }
