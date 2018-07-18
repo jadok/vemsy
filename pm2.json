@@ -1,6 +1,6 @@
 {
     "apps": [{
-      "name": "example-app-api",
+      "name": "vemsy",
       "script": "dist/main.js",
       "watch": true,
       "env": {

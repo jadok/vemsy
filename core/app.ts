@@ -1,6 +1,8 @@
 import * as express from 'express'
 import * as path from 'path'
 
+const includeAll = require('include-all')
+
 // import * as fileConfig from './config/files'
 
 import ConfigFile from './config'
@@ -34,9 +36,16 @@ class App {
 
   public setConfigFiles() {
     const files: ConfigFile = new ConfigFile(
-      filePathToPath('./core/config/files.json'),
-      filePathToPath('./app/config/files.json')
+      filePathToPath('./core/configs/files.json'),
+      filePathToPath('./app/configs/files.json')
     )
+    const configs: any = includeAll({
+      dirname     :  path.join(process.cwd(), 'app', 'configs'),
+      excludeDirs :  /^\.(git|svn)$/,
+      filter      :  /(.+)\.json$/,
+      optional    :  true
+    })
+    console.log('Config', configs)
     this.configs.files = files
     console.log('app_path', this.configs.files.get('app_path'))
   }
