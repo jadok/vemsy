@@ -16,7 +16,7 @@ import { ThemeManager } from './theme'
 /**
  * Express constructor
  */
-class App {
+export class App {
   public express: express.Express
   public configs: any = {}
   public theme: ThemeManager = null
@@ -62,10 +62,11 @@ class App {
   }
 
   public setPublic() {
-    const p = path.join(__dirname, '..', 'public')
-    console.log(p)
-    // this.express.use(express.static(this.configs.global.files.app_path.public))
-    this.express.use(express.static(p));
+    this.express.use(
+      express.static(
+        this.configs.global.files.app_path.public
+      )
+    )
   }
 
   public setTheme() {
@@ -105,5 +106,3 @@ class App {
     })
   }
 }
-
-export default new App().express

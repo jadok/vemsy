@@ -20,7 +20,7 @@ export const defineContentReader = (
     // generate a windows readable path
     const filePath = (viewPath + req.originalUrl.toString() + '.md').split('/')
     fs.readFile(
-      path.join(...filePath),
+      path.join('/', ...filePath),
       (err: NodeJS.ErrnoException, content: Buffer) => {
         if (err) {
           return next(new Error(err.toString()))
