@@ -11,9 +11,13 @@ COPY package.json /app/package.json
 COPY tsconfig.json /app/tsconfig.json
 COPY tslint.json /app/tslint.json
 COPY pm2.json /app/pm2.json
+COPY index.js /app/
 
-RUN npm install --production
+ENV NPM_CONFIG_LOGLEVEL warn
 
-RUN ls -laR /app
+RUN npm install
+RUN ls -la /app
+
+EXPOSE 9999
 
 CMD [ "pm2-runtime", "start", "/app/pm2.json" ]

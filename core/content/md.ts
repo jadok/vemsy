@@ -1,13 +1,14 @@
 /**
  * Markdown view template
  */
-import { Request } from 'express'
+import * as Express from 'express'
 import * as fs from 'fs'
 import * as path from 'path'
 
 const markdown = require('markdown')
 
-export interface IMarkdownExpressRequest extends Request {
+export interface IMarkdownExpressRequest extends Express.Request {
+  variables: any,
   markdown: string
 }
 
@@ -25,6 +26,9 @@ export const defineContentReader = (
           return next(new Error(err.toString()))
         }
         const rendered = markdown.markdown.toHTML(content.toString())
+        if (typeof req.variables === 'undefined') {
+          req.variables = {}
+        }
         req.markdown = rendered
         return next();
       }

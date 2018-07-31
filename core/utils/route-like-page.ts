@@ -7,7 +7,7 @@ export const descOrder = (a: any, b: any) => b.length - a.length
  *   List of paths
  * @param route
  *   actual route to test
- * 
+ *
  * @return
  *   list of defined path matching the route
  */

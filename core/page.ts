@@ -1,5 +1,9 @@
 import { Express } from 'express'
+
 import { factoryMotor, IViewTemplate } from './template/motor/factory_motor'
+
+import { BaseStyle } from './interpreters/style'
+import { BaseTemplate } from './interpreters/template'
 
 interface IPageParameter {
   app: Express
@@ -8,10 +12,8 @@ interface IPageParameter {
   viewPath: string
 }
 
-class Page {
-  /**
-   * regex path of the page
-   */
+/*
+class PageOld {
   public regex: string
 
   public viewTemplating: IViewTemplate
@@ -22,5 +24,13 @@ class Page {
   }
 
 }
+*/
 
-export default Page
+export abstract class BasePage {
+  public regex: string
+
+  public style: BaseStyle = null
+  public generalStyle: BaseStyle = null
+
+  public template: BaseTemplate
+}
