@@ -1,12 +1,37 @@
 # Life Cycle
 
-## Loading file configuration
+## Loading
 
-## Set view engine
+### Init Template
 
-Define Markdown motor as the main content loader.
+Initialize the template (markdown)
 
-### TODO
+### Load Configuration
 
-- Refacto to a class make it available to the user to override it.
-- It should be possible to define custom variables from the result of the markdown parser.
+Load all the configuration files
+
+### Load Theme
+
+Load the theme used precised by the configuration
+
+_____________________
+
+
+## Resolving Routes
+
+The template (markdown) is resolved before the other trigger.
+There is actually no cache on it, it will resolve again the route looking for the corresponding .md file anytime the route is called.
+
+### Load all the pages of the theme
+
+### Load stylesheets of the page
+
+Load only stylesheets needed for the page
+
+### Load template of the page
+
+Load only template (twig)
+
+### Page resolved
+
+An event should be fired when the page is resolved
