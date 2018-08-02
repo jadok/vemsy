@@ -1,8 +1,8 @@
 <html>
   <head>
-      <title>{{ title }}</title>
+    <title>{{ title }}</title>
     {% for my_style in styles %}
-      <link href={{my_style.file}} ref="stylesheet" type="text/css" >
+      <link href={{my_style.file}} rel="stylesheet" type="text/css" >
     {% endfor %}
   </head>
   <body>
