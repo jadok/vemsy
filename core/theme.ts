@@ -1,5 +1,5 @@
 import { Express, Response } from 'express'
-import * as path from 'path'
+import { join } from 'path'
 
 const includeAll = require('include-all')
 
@@ -7,6 +7,8 @@ import { readFile } from './interpreters/style'
 
 import { factoryMotor, IViewTemplate } from './template/motor/factory_motor'
 
+import styleCompiler from './compiler/index'
+import { arrayUnique } from './utils/array'
 import filePathToPath from './utils/path'
 import { testRoutes } from './utils/route-like-page'
 
@@ -20,7 +22,7 @@ const checkSubVars = (obj: any, key: string, attribute: string) => {
 }
 
 /**
- * Responsability:
+ * Responsibility:
  * - theme configuration manager
  * - store interpreters
  * - store pages
@@ -35,18 +37,20 @@ export class ThemeManager {
   public motor: IViewTemplate
   public pages: any = {}
   public path: string = ''
+  public styles: string[] = []
 
   constructor(app: Express, configs: any) {
     this.name = configs.theme_name
-    this.path = path.join(filePathToPath(configs.app_path.themes), this.name)
-    this.motor = factoryMotor(configs.theme_motor, app, path.join(this.path, 'views'))
+    this.path = join(filePathToPath(configs.app_path.themes), this.name)
+    this.motor = factoryMotor(configs.theme_motor, app, join(this.path, 'views'))
     this.configurePages()
     this.loadPages()
+    this.compileStyles(configs)
   }
 
   public configurePages() {
     this.configs.pages = includeAll({
-      dirname: path.join(this.path, 'pages'),
+      dirname: join(this.path, 'pages'),
       excludeDirs: /^\.(git|svn)$/,
       filter: /(.+)\.ts$/,
       optional: true
@@ -66,9 +70,23 @@ export class ThemeManager {
         }
         else {
           this.pages[page.regex] = page
+          this.styles.push(page.style.file)
+          if (page.generalStyle) {
+            this.styles.push(page.generalStyle.file)
+          }
         }
       }
     });
+  }
+
+  public compileStyles(configs: any) {
+    this.styles = arrayUnique(this.styles)
+    styleCompiler(
+      join(this.path, 'styles'),
+      this.styles,
+      configs.app_path.public,
+      'css'
+    )
   }
 
   public prepareVariables(req: any, globalStyle: any, styles: any[]) {
@@ -100,5 +118,4 @@ export class ThemeManager {
     this.prepareVariables(req, globalStyle, styles)
     res.render(template.file, req.variables)
   }
-
 }
