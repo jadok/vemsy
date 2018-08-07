@@ -1,16 +1,24 @@
 {
   "name": "vemsy",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./typings/index.d.ts",
+  "bin": {
+    "vemsy": "./bin/index.js"
+  },
   "scripts": {
-    "start": "webpack --config webpack/webpack.config.js --watch --mode development",
+    "build:project": "tsc -p tsconfig.json",
+    "build:cli": "tsc cli/index.ts --outDir bin",
+    "build:all": "npm run build:project && npm run build:cli",
+    "clean": "rm -fr doc/* dist/* bin/*",
     "pm2:start": "pm2 start pm2.json",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
-    "test": "mocha -r ts-node/register tests/**/*.spec.ts",
-    "coverage": "nyc mocha -r ts-node/register core/**/*.spec.ts",
+    "test": "nyc mocha -r ts-node/register tests/**",
+    "coverage": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
     "benchmark": "ts-node benchmark/index.ts",
-    "doc": "typedoc --out doc/"
+    "doc": "typedoc core/ --out doc/",
+    "global:test": "npm run build:all && sudo npm link"
   },
   "repository": {
     "type": "git",
@@ -29,50 +37,46 @@
     "@types/node": "^10.5.5",
     "chai": "^4.1.2",
     "coveralls": "^3.0.2",
-    "css-loader": "^0.28.11",
-    "mini-css-extract-plugin": "^0.4.0",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
-    "sass-loader": "^7.0.3",
-    "style-loader": "^0.21.0",
-    "ts-loader": "^4.4.1",
-    "ts-node": "^7.0.0",
-    "tslint": "^5.10.0",
-    "tslint-loader": "^3.6.0",
+    "pm2": "^3.0.3",
+    "tslint": "^5.11.0",
     "tslint-microsoft-contrib": "^5.0.3",
-    "typescript": "^2.9.2",
-    "webpack": "^4.12.0",
-    "webpack-cli": "^3.0.4",
-    "webpack-node-externals": "^1.7.2"
+    "typescript": "^3.0.3"
   },
   "dependencies": {
     "benchmark": "2.1.4",
     "express": "4.16.3",
     "fs": "0.0.1-security",
+    "generate-folders": "^0.1.0",
     "include-all": "4.0.3",
     "markdown": "0.5.0",
-    "nconf": "0.10.0",
-    "node-sass": "4.9.2",
     "path": "0.12.7",
     "path-to-regexp": "2.2.1",
+    "sass": "^1.13.1",
+    "ts-node": "^7.0.1",
     "twig": "1.12.0"
   },
   "nyc": {
     "check-coverage": true,
     "per-file": true,
-    "lines": 90,
-    "statements": 90,
-    "functions": 90,
     "extension": [
       ".ts"
     ],
+    "lines": 0,
+    "statements": 0,
+    "functions": 0,
     "exclude": [
-      "alternative-tmp",
       "alternative",
+      "alternative-tmp",
       "benchmark",
+      "bin",
+      "cli",
+      "dist",
+      "doc",
+      "node_modules",
       "webpack",
-      "tests",
-      "dist"
+      "tests"
     ],
     "reporter": [
       "lcov",
@@ -82,6 +86,8 @@
     "all": true,
     "temp-directory": "./alternative-tmp",
     "report-dir": "./alternative"
-
-  }
+  },
+  "files": [
+    "./dist/"
+  ]
 }

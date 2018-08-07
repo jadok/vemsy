@@ -12,7 +12,7 @@ export const descOrder = (a: any, b: any) => b.length - a.length
  *   list of defined path matching the route
  */
 export const testRoutes = (paths: string[], route: string): string[] => {
-  const matchingRoutes = paths.reduce((acc, path: string) => {
+  const matchingRoutes = paths.reduce((acc: string[], path: string) => {
     const reg = new RegExp(path)
     const t = reg.test(route)
     if (t) {

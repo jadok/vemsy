@@ -1,5 +1,7 @@
 FROM keymetrics/pm2:8-alpine
 
+LABEL maintainer="jadok"
+
 WORKDIR /app
 
 COPY app /app/app

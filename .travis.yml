@@ -1,0 +1,19 @@
+sudo: false
+language: node_js
+node_js:
+  - "10"
+
+before_script:
+  - npm install -g nyc
+  - npm install -g mocha
+  - npm install -g coveralls
+  - npm install -g typedoc
+#  - npm run-script tslint
+
+install:
+  - npm install
+  - npm run-script build:cli
+
+after_script:
+  - npm run-script doc
+  - npm run-script coverage
