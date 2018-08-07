@@ -1,0 +1,21 @@
+version: 1.0.{build}
+image: Previous Visual Studio 2017
+platform: x64
+install:
+- sh: npm install
+cache: node_modules
+build:
+  verbosity: minimal
+test_script:
+- ps: >-
+    node --version
+
+    ts-node --version
+
+    tslint --version
+
+    npm run tslint
+
+    npm run test
+
+    npm run coveralls
