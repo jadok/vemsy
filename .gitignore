@@ -1,3 +1,7 @@
 dist/
 node_modules/
 public/
+alternative-tmp
+alternative
+.nyc_output
+.sass-cache
