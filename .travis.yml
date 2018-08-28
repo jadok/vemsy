@@ -1,15 +1,16 @@
-os:
-  - linux
-
+sudo: false
 language: node_js
 node_js:
-  - "node"
+  - "10"
 
 before_script:
+  - npm install -g nyc
+  - npm install -g mocha
+  - npm install -g coveralls
   - npm run tslint
 
 install:
   - npm install
 
 after_script:
-  - npm run coverage
+  - NODE_ENV=test nyc mocha -r ts-node/register tests/**/*.spec.ts && nyc report --reporter=text-lcov | coveralls

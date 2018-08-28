@@ -8,7 +8,7 @@
     "pm2:start": "pm2 start pm2.json",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "test": "mocha -r ts-node/register tests/**/*.spec.ts",
-    "coverage": "nyc mocha -r ts-node/register tests/**/*.spec.ts && nyc report --reporter=text-lcov | coveralls",
+    "coverage": "NODE_ENV=test nyc mocha -r ts-node/register tests/**/*.spec.ts && nyc report --reporter=text-lcov | coveralls",
     "benchmark": "ts-node benchmark/index.ts",
     "doc": "typedoc --out doc/"
   },
@@ -37,7 +37,7 @@
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
     "ts-loader": "^4.4.1",
-    "ts-node": "^7.0.0",
+    "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-loader": "^3.6.0",
     "tslint-microsoft-contrib": "^5.0.3",
@@ -62,9 +62,6 @@
   "nyc": {
     "check-coverage": true,
     "per-file": true,
-    "lines": 90,
-    "statements": 90,
-    "functions": 90,
     "extension": [
       ".ts"
     ],
