@@ -13,4 +13,5 @@ install:
   - npm install
 
 after_script:
-  - NODE_ENV=test nyc mocha -r ts-node/register tests/**/*.spec.ts && nyc report --reporter=text-lcov | coveralls
+  - npm test
+  - npm run-script coverage
