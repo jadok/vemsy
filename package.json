@@ -69,6 +69,7 @@
     "statements": 0,
     "functions": 0,
     "exclude": [
+      "app",
       "alternative-tmp",
       "alternative",
       "benchmark",
