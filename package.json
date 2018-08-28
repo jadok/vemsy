@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack --config webpack/webpack.config.js --watch --mode development",
-    "sass": "sass app/styles/index.scss:public/css/index.css",
-    "pm2:start": "pm2 start pm2.json"
+    "pm2:start": "pm2 start pm2.json",
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "test": "mocha -r ts-node/register tests/**/*.spec.ts",
+    "coverage": "nyc mocha -r ts-node/register core/**/*.spec.ts",
+    "benchmark": "ts-node benchmark/index.ts",
+    "doc": "typedoc --out doc/"
   },
   "repository": {
     "type": "git",
@@ -19,27 +23,65 @@
   },
   "homepage": "https://github.com/jadok/vemsy#readme",
   "devDependencies": {
+    "@types/chai": "^4.1.4",
     "@types/express": "^4.16.0",
-    "@types/node": "^10.3.2",
+    "@types/mocha": "^5.2.4",
+    "@types/node": "^10.5.5",
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.2",
     "css-loader": "^0.28.11",
     "mini-css-extract-plugin": "^0.4.0",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
     "ts-loader": "^4.4.1",
+    "ts-node": "^7.0.0",
     "tslint": "^5.10.0",
     "tslint-loader": "^3.6.0",
     "tslint-microsoft-contrib": "^5.0.3",
-    "typescript": "^2.9.1",
+    "typescript": "^2.9.2",
     "webpack": "^4.12.0",
     "webpack-cli": "^3.0.4",
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "express": "^4.16.3",
+    "benchmark": "2.1.4",
+    "express": "4.16.3",
     "fs": "0.0.1-security",
-    "markdown": "^0.5.0",
-    "path": "^0.12.7",
-    "path-to-regexp": "^2.2.1",
-    "twig": "^1.12.0"
+    "include-all": "4.0.3",
+    "markdown": "0.5.0",
+    "nconf": "0.10.0",
+    "node-sass": "4.9.2",
+    "path": "0.12.7",
+    "path-to-regexp": "2.2.1",
+    "twig": "1.12.0"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "per-file": true,
+    "lines": 90,
+    "statements": 90,
+    "functions": 90,
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "alternative-tmp",
+      "alternative",
+      "benchmark",
+      "webpack",
+      "tests",
+      "dist"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "cache": true,
+    "all": true,
+    "temp-directory": "./alternative-tmp",
+    "report-dir": "./alternative"
+
   }
 }
