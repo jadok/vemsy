@@ -1,0 +1,15 @@
+os:
+  - linux
+
+language: node_js
+node_js:
+  - "node"
+
+before_script:
+  - npm run tslint
+
+install:
+  - npm install
+
+after_script:
+  - npm run coverage
