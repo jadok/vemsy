@@ -11,6 +11,7 @@ before_script:
 
 install:
   - npm install
+  - npm run-script build:cli
 
 after_script:
   - npm test

@@ -1,4 +1,4 @@
-import { App } from '../core/app'
+import { App } from 'vemsy'
 
 const app: any = new App()
 

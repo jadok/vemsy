@@ -1,4 +1,4 @@
-import { BasePage } from '../../../../core/page'
+import { BasePage } from 'vemsy'
 import { MainStyle } from '../interpreters/style/main'
 import { DefaultTemplate } from '../interpreters/template/default'
 
