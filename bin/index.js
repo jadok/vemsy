@@ -1,2 +1,8 @@
 #!/usr/bin/env node
-console.log(process.argv);
+"use strict";
+exports.__esModule = true;
+var path_1 = require("path");
+var generateDirectory = require("generate-directory");
+var srcDir = path_1.join('.', 'folder-structure');
+var gen = new generateDirectory.GenerateDirectory(srcDir, process.cwd());
+gen.fullGeneration();
