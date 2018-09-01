@@ -5,3 +5,4 @@ alternative-tmp
 alternative
 .nyc_output
 .sass-cache
+doc

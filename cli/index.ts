@@ -3,6 +3,6 @@
 import { join } from 'path'
 const generateDirectory = require("generate-directory")
 
-const srcDir = join('.', 'folder-structure');
+const srcDir = join('.');
 const gen = new generateDirectory.GenerateDirectory(srcDir, process.cwd())
 gen.fullGeneration()
