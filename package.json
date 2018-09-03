@@ -2,7 +2,8 @@
   "name": "vemsy",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "bin": {
     "vemsy": "./bin/index.js"
   },
@@ -42,7 +43,7 @@
     "pm2": "^3.0.3",
     "tslint": "^5.11.0",
     "tslint-microsoft-contrib": "^5.0.3",
-    "typescript": "^3.0.3"
+    "typescript": "^3.1.0-dev.20180901"
   },
   "dependencies": {
     "sass": "^1.13.1",

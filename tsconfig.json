@@ -6,10 +6,11 @@
     "declaration": true,
     "noImplicitAny": true,
     "removeComments": true,
+    "allowSyntheticDefaultImports": true,
     "typeRoots": [ "node_modules/@types" ]
   },
   "include": [
-    "core/index.ts"
+    "core/**/*.ts"
   ],
   "exclude": [
     "node_modules",
