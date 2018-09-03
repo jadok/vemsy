@@ -2,15 +2,15 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
-    "outDir": "dist/",
+    "outDir": "./dist/",
     "declaration": true,
-    "noImplicitAny": true,
-    "removeComments": true,
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "typeRoots": [ "node_modules/@types" ]
   },
   "include": [
-    "core/**/*.ts"
+    "./core/**/*",
+    "./index.ts"
   ],
   "exclude": [
     "node_modules",

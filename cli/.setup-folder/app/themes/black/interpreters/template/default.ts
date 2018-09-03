@@ -1,5 +1,5 @@
-import { BaseTemplateInterpreter } from 'vemsy'
+import { BaseTemplate } from 'vemsy'
 
-export class DefaultTemplate extends BaseTemplateInterpreter {
+export class DefaultTemplate extends BaseTemplate {
   public file = 'root.html.twig';
 }
