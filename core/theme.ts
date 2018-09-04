@@ -55,16 +55,22 @@ export class ThemeManager {
       filter: /(.+)\.ts$/,
       optional: true
     })
+    console.log('Configured pages', this.configs.pages)
   }
 
   public loadPages(configs: any = this.configs.pages) {
+    console.log('Load pages')
     Object.keys(configs).forEach((key: any) => {
       const attribute = themeAttributes(key, 'Page')
+      console.log(key, attribute)
       if (!checkSubVars(configs, key, attribute)) {
+        console.log('check failed')
         this.loadPages(configs[key])
       }
       else {
-        const page = new configs[key][attribute]()
+        console.log('check suceed', configs, key, attribute, configs[key], configs[key][attribute])
+        const page = configs[key][attribute]()
+        console.log('NEW')
         if (this.pages.hasOwnProperty(page.regex)) {
           console.error(`The regex ${page.regex} already has a page defined.`)
         }
