@@ -18,8 +18,8 @@ import filePathToPath from './utils/path'
 export class App {
   public express: express.Express
   public configs: any = {}
-  public theme: ThemeManager = null
-  public twig: Twig
+  public theme: ThemeManager | null = null
+  public twig: Twig | null = null
 
   /**
    * Set up express and middleware
@@ -85,7 +85,7 @@ export class App {
     console.log('setting route resolver')
     this.express.get('/*', (req: any, res: express.Response) => {
       console.log(req.originalUrl)
-      if (req.originalUrl.indexOf('.') === -1) {
+      if (req.originalUrl.indexOf('.') === -1 && this.theme !== null) {
         this.theme.pageResolver(req, res)
       }
       else {

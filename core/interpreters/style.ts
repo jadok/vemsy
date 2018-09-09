@@ -1,7 +1,7 @@
 import { join } from 'path'
 
 export abstract class BaseStyle {
-  public file: string
+  public file: string = ''
   public media?: string = 'all'
   public priority?: string = undefined
 }

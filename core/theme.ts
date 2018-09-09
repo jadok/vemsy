@@ -1,4 +1,4 @@
-import { Express, Response } from 'express'
+import { Express } from 'express'
 import { join } from 'path'
 
 const includeAll = require('include-all')
@@ -12,12 +12,12 @@ import { arrayUnique } from './utils/array'
 import filePathToPath from './utils/path'
 import { testRoutes } from './utils/route-like-page'
 
-const themeAttributes = (key: string, type: string) => key.charAt(0).toUpperCase() + key.slice(1) + type
+export const themeAttributes = (key: string, type: string) => key.charAt(0).toUpperCase() + key.slice(1) + type
 
-const checkSubVars = (obj: any, key: string, attribute: string) => {
+export const checkSubVars = (obj: any, key: string, attribute: string) => {
   return (
     typeof obj[key] === 'object'
-    && obj[key].hasOwnProperty(attribute)
+    && !obj[key].hasOwnProperty(attribute)
   )
 }
 
@@ -34,7 +34,7 @@ export class ThemeManager {
   public configs: any = {}
   public publicFiles: string = './'
   public name: string
-  public motor: IViewTemplate
+  public motor: IViewTemplate | null
   public pages: any = {}
   public path: string = ''
   public styles: string[] = []
@@ -55,26 +55,22 @@ export class ThemeManager {
       filter: /(.+)\.ts$/,
       optional: true
     })
-    console.log('Configured pages', this.configs.pages)
   }
 
   public loadPages(configs: any = this.configs.pages) {
     console.log('Load pages')
     Object.keys(configs).forEach((key: any) => {
       const attribute = themeAttributes(key, 'Page')
-      console.log(key, attribute)
-      if (!checkSubVars(configs, key, attribute)) {
-        console.log('check failed')
+      if (checkSubVars(configs, key, attribute)) {
         this.loadPages(configs[key])
       }
       else {
-        console.log('check suceed', configs, key, attribute, configs[key], configs[key][attribute])
-        const page = configs[key][attribute]()
-        console.log('NEW')
+        const page = new configs[key][attribute]()
         if (this.pages.hasOwnProperty(page.regex)) {
           console.error(`The regex ${page.regex} already has a page defined.`)
         }
         else {
+          console.log(`A page named '${attribute}' for the route: '${page.regex} has been defined'`)
           this.pages[page.regex] = page
           this.styles.push(page.style.file)
           if (page.generalStyle) {
@@ -103,7 +99,7 @@ export class ThemeManager {
     req.variables.md_data = req.markdown
   }
 
-  public pageResolver(req: any, res: Response) {
+  public pageResolver(req: any, res: any) {
     const paths = testRoutes(Object.keys(this.pages), req.path)
     let globalStyle: any = null
     let template: any = null

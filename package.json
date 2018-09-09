@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "main": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
+  "types": "./typings/index.d.ts",
   "bin": {
     "vemsy": "./bin/index.js"
   },
@@ -14,7 +14,7 @@
     "clean": "rm -fr doc/* dist/* bin/*",
     "pm2:start": "pm2 start pm2.json",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
-    "test": "nyc mocha -r ts-node/register tests/**/*.spec.ts",
+    "test": "nyc mocha -r ts-node/register tests/**",
     "coverage": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
     "benchmark": "ts-node benchmark/index.ts",
     "doc": "typedoc core/ --out doc/",
@@ -52,7 +52,6 @@
     "fs": "0.0.1-security",
     "include-all": "4.0.3",
     "markdown": "0.5.0",
-    "node-sass": "^4.9.3",
     "path": "0.12.7",
     "path-to-regexp": "2.2.1",
     "ts-node": "^7.0.1",
@@ -68,15 +67,16 @@
     "statements": 0,
     "functions": 0,
     "exclude": [
-      "app",
-      "alternative-tmp",
       "alternative",
+      "alternative-tmp",
       "benchmark",
       "bin",
       "cli",
+      "dist",
+      "doc",
+      "node_modules",
       "webpack",
-      "tests",
-      "dist"
+      "tests"
     ],
     "reporter": [
       "lcov",

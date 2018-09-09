@@ -1,20 +1,15 @@
 /**
  * Markdown view template
  */
-import * as Express from 'express'
+import { Request, Response } from 'express'
 import * as fs from 'fs'
 import * as path from 'path'
 
 const markdown = require('markdown')
 
-export interface IMarkdownExpressRequest extends Express.Request {
-  variables: any,
-  markdown: string
-}
-
 export const defineContentReader = (
   viewPath: string
-) => (req: IMarkdownExpressRequest, res: Express.Response, next: Function) => {
+) => (req: any, res: Response, next: Function) => {
   // use the middleware if no file extension is provided
   if (req.originalUrl.indexOf('.') === -1) {
     // generate a windows readable path

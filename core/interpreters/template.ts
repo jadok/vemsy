@@ -4,6 +4,6 @@ export interface ITemplate {
 }
 
 export abstract class BaseTemplate {
-  public config: ITemplate
-  public file: string
+  public config: ITemplate | null = null
+  public file: string | null = null
 }
