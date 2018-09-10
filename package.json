@@ -43,10 +43,9 @@
     "pm2": "^3.0.3",
     "tslint": "^5.11.0",
     "tslint-microsoft-contrib": "^5.0.3",
-    "typescript": "^3.1.0-dev.20180901"
+    "typescript": "^3.0.3"
   },
   "dependencies": {
-    "sass": "^1.13.1",
     "benchmark": "2.1.4",
     "express": "4.16.3",
     "fs": "0.0.1-security",
@@ -54,6 +53,7 @@
     "markdown": "0.5.0",
     "path": "0.12.7",
     "path-to-regexp": "2.2.1",
+    "sass": "^1.13.1",
     "ts-node": "^7.0.1",
     "twig": "1.12.0"
   },
