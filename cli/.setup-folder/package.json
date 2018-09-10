@@ -9,9 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
+    "@types/node": "^10.9.4",
     "ts-node": "^7.0.1",
-    "typescript": "^3.1.0-dev.20180901",
-    "vemsy": "file:../vemsy"
+    "typescript": "^3.1.0-dev.20180901"
   }
 }

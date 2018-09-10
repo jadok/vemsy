@@ -8,7 +8,7 @@ before_script:
   - npm install -g mocha
   - npm install -g coveralls
   - npm install -g typedoc
-  - npm run-script tslint
+#  - npm run-script tslint
 
 install:
   - npm install
