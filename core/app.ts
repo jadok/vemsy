@@ -7,10 +7,8 @@ import './json'
 import { mergeConfiguration } from './config'
 import * as systemConfigs from './configs/files.json'
 import { defineContentReader } from './content/md'
-import Twig from './template/motor/twig_motor'
 import { ThemeManager } from './theme'
 import { arrayUnique } from './utils/array'
-import filePathToPath from './utils/path'
 
 /**
  * Express constructor
@@ -19,7 +17,6 @@ export class App {
   public express: express.Express
   public configs: any = {}
   public theme: ThemeManager | null = null
-  public twig: Twig | null = null
 
   /**
    * Set up express and middleware
@@ -28,7 +25,7 @@ export class App {
     this.express = express()
     this.setConfigFiles()
     this.setPublic()
-    this.setViewEngine()
+    this.setContentEngine()
     this.setTheme()
     this.routes()
   }
@@ -72,11 +69,11 @@ export class App {
   /**
    * Set Principal template
    */
-  public setViewEngine() {
-    console.log('setting ViewEngine')
+  public setContentEngine() {
+    console.log('setting ContentEngine')
     this.express.use(
       defineContentReader(
-        filePathToPath(this.configs.global.files.app_path.contents)
+        this.configs.global.files.app_path.contents
       )
     )
   }

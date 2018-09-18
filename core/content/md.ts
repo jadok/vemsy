@@ -4,6 +4,7 @@
 import { Request, Response } from 'express'
 import * as fs from 'fs'
 import * as path from 'path'
+import filePathToPath from '../utils/path'
 
 const markdown = require('markdown')
 
@@ -13,9 +14,9 @@ export const defineContentReader = (
   // use the middleware if no file extension is provided
   if (req.originalUrl.indexOf('.') === -1) {
     // generate a windows readable path
-    const filePath = (viewPath + req.originalUrl.toString() + '.md').split('/')
+    const filePath = viewPath + req.originalUrl.toString() + '.md'
     fs.readFile(
-      path.join('/', ...filePath),
+      filePathToPath(filePath),
       (err: NodeJS.ErrnoException, content: Buffer) => {
         if (err) {
           return next(new Error(err.toString()))

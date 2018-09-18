@@ -3,11 +3,10 @@ import { join } from 'path'
 
 const includeAll = require('include-all')
 
-import { readFile } from './interpreters/style'
+import { factoryView, IViewTemplate } from './view/motor/factory'
 
-import { factoryMotor, IViewTemplate } from './template/motor/factory_motor'
+import { StyleManager } from './style/manager'
 
-import styleCompiler from './compiler/index'
 import { arrayUnique } from './utils/array'
 import filePathToPath from './utils/path'
 import { testRoutes } from './utils/route-like-page'
@@ -38,14 +37,16 @@ export class ThemeManager {
   public pages: any = {}
   public path: string = ''
   public styles: string[] = []
+  public styleManager: StyleManager
 
   constructor(app: Express, configs: any) {
     this.name = configs.theme_name
     this.path = join(filePathToPath(configs.app_path.themes), this.name)
-    this.motor = factoryMotor(configs.theme_motor, app, join(this.path, 'views'))
+    this.motor = factoryView(configs.theme_motor, app, join(this.path, 'views'))
+    this.styleManager = new StyleManager(join(this.path, 'styles'), filePathToPath(configs.app_path.public))
     this.configurePages()
     this.loadPages()
-    this.compileStyles(configs)
+    this.compileStyles()
   }
 
   public configurePages() {
@@ -81,14 +82,10 @@ export class ThemeManager {
     });
   }
 
-  public compileStyles(configs: any) {
+  public compileStyles() {
     this.styles = arrayUnique(this.styles)
-    styleCompiler(
-      join(this.path, 'styles'),
-      this.styles,
-      configs.app_path.public,
-      'css'
-    )
+    this.styles
+      .forEach((filename: string) => this.styleManager.compile(filename))
   }
 
   public prepareVariables(req: any, globalStyle: any, styles: any[]) {
@@ -109,12 +106,20 @@ export class ThemeManager {
         template = this.pages[myPath].template
       }
       if (!globalStyle && this.pages[myPath].generalStyle) {
-        globalStyle = readFile(this.pages[myPath].generalStyle)
+        globalStyle = this.styleManager.resolver(this.pages[myPath].generalStyle)
         styles.slice(0, styles.length)
-        styles.push(readFile(this.pages[myPath].style))
+        const responseStyle = {
+          ...this.pages[myPath].style,
+          file: this.styleManager.resolver(this.pages[myPath].style.file)
+        }
+        styles.push(responseStyle)
       }
       else {
-        styles.push(readFile(this.pages[myPath].style))
+        const responseStyle = {
+          ...this.pages[myPath].style,
+          file: this.styleManager.resolver(this.pages[myPath].style.file)
+        }
+        styles.push(responseStyle)
       }
     })
     this.prepareVariables(req, globalStyle, styles)
