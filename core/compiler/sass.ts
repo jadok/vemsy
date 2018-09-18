@@ -1,3 +1,5 @@
+import { join } from 'path'
+
 const sass = require('sass');
 const fs = require('fs');
 
@@ -28,14 +30,17 @@ export const sassResult = (dist: any) => (error: any, result: any) => {
 }
 
 export const sassCompile = (
+  fullFileName: string,
   src: string,
   dist: string,
-  result: (err: any, res: any) => any = sassResult(dist)) =>
+  result: (err: any, res: any) => any = sassResult(dist)) => {
+    const filename = fullFileName.split('.')[0]
     sass.render({
-      file: src,
-      outFile: dist,
+      file: join(src, fullFileName),
+      outFile: join(dist, filename + '.css'),
       sourceMap: true,
     }, result)
+  }
 
 
 export default sassCompile
