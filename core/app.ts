@@ -76,7 +76,7 @@ export class App {
     console.log('setting ViewEngine')
     this.express.use(
       defineContentReader(
-        filePathToPath(this.configs.global.files.app_path.contents)
+        this.configs.global.files.app_path.contents
       )
     )
   }
