@@ -14,7 +14,7 @@
     "clean": "rm -fr doc/* dist/* bin/*",
     "pm2:start": "pm2 start pm2.json",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
-    "test": "nyc mocha -r ts-node/register tests/**",
+    "test": "nyc mocha --recursive --require ts-node/register ./tests/**/*.spec.ts ./tests/**/**/*.spec.ts ./tests/**.spec.ts",
     "coverage": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
     "benchmark": "ts-node benchmark/index.ts",
     "doc": "typedoc core/ --out doc/",

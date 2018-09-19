@@ -6,13 +6,14 @@ export class Compiler {
   public compiler: IStyleCompiler[] = []
   public themePath: string = ''
   public publicPath: string = ''
-  
+
   constructor(themePath: string, publicPath: string,) {
     this.publicPath = themePath
     this.publicPath = publicPath
+    this.setCompilers()
   }
 
-  public setCompiler() {
+  public setCompilers() {
     this.compiler.push(new SassStyle())
   }
 }

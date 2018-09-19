@@ -4,17 +4,19 @@ import { join } from 'path'
 
 const fs = require('fs')
 
-import sassCompile, { COMPILE_MODE } from '../../core/compiler/sass'
+import sassCompile from '../../../core/compiler/sass/sass'
 
 describe('Compile sass', () => {
   it('test compile sass', async function () {
-    const input: string = join(__dirname, '..', 'fixtures', 'main.scss')
-    const output: string = join(__dirname, '..', 'fixtures', 'main.css')
+    const input: string = join(__dirname, '..', '..', 'fixtures')
+    const output: string = join(__dirname, '..', '..', 'fixtures', 'main.css')
     return sassCompile(
+      'main.scss',
       input,
       output,
       (error: any, result: any) => {
         if (error) {
+          console.log(error)
           expect(true).to.equal(false)
         }
         else {
