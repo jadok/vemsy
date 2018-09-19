@@ -1,6 +1,6 @@
 import { join } from 'path'
 
-import compileSass from './sass'
+import compileSass from './sass/sass'
 
 const factory: any = (
   themePath: string,
