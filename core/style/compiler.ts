@@ -19,6 +19,12 @@ export class Compiler {
     this.compiler.push(new SassStyle())
   }
 
+  /**
+   * Compile the filename with all the compiler matching the file.
+   *
+   * @param filename 
+   *  filename to be compiled.
+   */
   public compile(filename: string) {
     const fileDirs = filename.split('/')
     const srcTheme: string = join(this.themePath, ...fileDirs)
