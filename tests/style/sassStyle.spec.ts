@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import 'mocha'
 
-import { SassStyle } from '../../../core/compiler/sass/sassStyle'
+import { SassStyle } from '../../core/style/sassStyle'
 
 describe('Sass Style', () => {
   const sassStyle = new SassStyle()

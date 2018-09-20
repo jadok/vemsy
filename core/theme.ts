@@ -7,7 +7,7 @@ import { readFile } from './interpreters/style'
 
 import { factoryMotor, IViewTemplate } from './template/motor/factory_motor'
 
-import styleCompiler from './compiler/index'
+import styleCompiler from './style/index'
 import { arrayUnique } from './utils/array'
 import filePathToPath from './utils/path'
 import { testRoutes } from './utils/route-like-page'

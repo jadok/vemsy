@@ -4,7 +4,7 @@ import { join } from 'path'
 
 const fs = require('fs')
 
-import sassCompile from '../../../core/compiler/sass/sass'
+import sassCompile from '../../../core/style/compiler/sass'
 
 describe('Compile sass', () => {
   it('test compile sass', async function () {
