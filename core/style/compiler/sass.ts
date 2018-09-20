@@ -10,20 +10,29 @@ export enum COMPILE_MODE {
 
 export const sassResult = (dist: any) => (error: any, result: any) => {
   if (error) {
-    console.log(error.status); // used to be "code" in v2x and below
-    console.log(error.column);
-    console.log(error.message);
-    console.log(error.line);
+    console.error(error.status); // used to be "code" in v2x and below
+    console.error(error.column);
+    console.error(error.message);
+    console.error(error.line);
   }
   else {
     // No errors during the compilation, write this result on the disk
-    fs.writeFile(dist, result.css, (err: any) => {
+    fs.writeFile(dist, result.css.toString(), (err: any) => {
       if (!err) {
         console.log(dist + ' has been updated in ' + result.stats.duration + 'ms')
       }
       else {
         // file written on disk.
-        console.log('error writing')
+        console.error('error writing', err, dist)
+      }
+    });
+    fs.writeFile(dist + '.map', result.map.toString(), (err: any) => {
+      if (!err) {
+        console.log(dist + '.map has been updated in ' + result.stats.duration + 'ms')
+      }
+      else {
+        // file written on disk.
+        console.error('error writing', err, dist + '.map')
       }
     });
   }
@@ -33,14 +42,11 @@ export const sassCompile = (
   fullFileName: string,
   src: string,
   dist: string,
-  result: (err: any, res: any) => any = sassResult(dist)) => {
-    const filename = fullFileName.split('.')[0]
+  result: (err: any, res: any) => any = sassResult(dist)) =>
     sass.render({
       file: join(src, fullFileName),
-      outFile: join(dist, filename + '.css'),
+      outFile: dist,
       sourceMap: true,
     }, result)
-  }
-
 
 export default sassCompile
