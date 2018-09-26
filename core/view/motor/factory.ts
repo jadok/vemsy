@@ -1,13 +1,13 @@
 import { Express } from 'express'
 
-import TemplateMotor from './template_motor'
-import TwigMotor from './twig_motor'
+import ViewMotor from './view'
+import TwigMotor from './twig'
 
 export interface IViewTemplate {
-  motor: TemplateMotor
+  motor: ViewMotor
 }
 
-export const factoryMotor = (type: string, app: Express, viewPath: string): IViewTemplate | null => {
+export const factoryView = (type: string, app: Express, viewPath: string): IViewTemplate | null => {
   switch (type) {
     case 'twig': {
       const factoryInstance = {

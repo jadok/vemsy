@@ -1,8 +1,8 @@
 import { Express } from 'express'
 
-import Template from './template_motor'
+import View from './view'
 
-class Twig extends Template {
+class Twig extends View {
   public setEngine(app: Express, viewPath: string) {
     app.set('views', viewPath);
     app.set('view engine', 'twig');
