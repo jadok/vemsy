@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build:project": "tsc -p tsconfig.json",
-    "build:cli": "tsc cli/index.ts --outDir bin",
+    "build:cli": "tsc cli/index.ts --outDir bin && cp cli/.setup-folder bin/ -r",
     "build:all": "npm run build:project && npm run build:cli",
     "clean": "rm -fr doc/* dist/* bin/*",
     "pm2:start": "pm2 start pm2.json",
