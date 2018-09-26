@@ -3,7 +3,7 @@
 ## Role
 
 Th **style** is refered in different cases in the project:
-- The style file that should be compiled (Ex: app/themes/_my_theme_/style/index.scss)
+- The style file that should be compiled (Ex: app/themes/_mytheme_/style/index.scss)
 - The compiler of the style file
 - The public access of the resource in the public folder
 
