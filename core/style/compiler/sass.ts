@@ -26,15 +26,6 @@ export const sassResult = (dist: any) => (error: any, result: any) => {
         console.error('error writing', err, dist)
       }
     });
-    fs.writeFile(dist + '.map', result.map.toString(), (err: any) => {
-      if (!err) {
-        console.log(dist + '.map has been updated in ' + result.stats.duration + 'ms')
-      }
-      else {
-        // file written on disk.
-        console.error('error writing', err, dist + '.map')
-      }
-    });
   }
 }
 
