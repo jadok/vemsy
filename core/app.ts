@@ -1,14 +1,26 @@
 import * as express from 'express'
 import * as path from 'path'
 const includeAll = require('include-all')
+const morgan = require('morgan');
+const winston = require('winston')
 
 import './json'
 
 import { mergeConfiguration } from './config'
 import * as systemConfigs from './configs/files.json'
+import * as logsConfigs from './configs/loger.json'
+
 import { defineContentReader } from './content/md'
 import { ThemeManager } from './theme'
 import { arrayUnique } from './utils/array'
+import filePathToPath from './utils/path';
+
+interface ILogs {
+  name: string;
+  date: Date;
+}
+
+const globalAny: any = global
 
 /**
  * Express constructor
@@ -22,12 +34,48 @@ export class App {
    * Set up express and middleware
    */
   constructor() {
+    globalAny.logs = []
+    globalAny.logs.push({
+      date: new Date(),
+      name: 'App constructor'
+    })
+    //  logs.push()
     this.express = express()
     this.setConfigFiles()
+    this.setLoggers()
     this.setPublic()
     this.setContentEngine()
     this.setTheme()
     this.routes()
+
+    const initDate = globalAny.logs[0].date
+    globalAny.logs.forEach((action: ILogs) => {
+      console.log(`${action.name}:  ${(action.date.valueOf() - initDate.valueOf())}ms`)
+    })
+    console.log(`Bootstraped in ${(new Date()).valueOf() - initDate.valueOf()}ms`)
+  }
+
+  public setLoggers() {
+    const configFile = this.configs.global.logs.winston.file
+    configFile.filename = filePathToPath(configFile.filename)
+    const logger = winston.createLogger({
+      exitOnError: false, // do not exit on handled exceptions
+      transports: [
+        new winston.transports.File(configFile),
+        new winston.transports.Console(this.configs.global.logs.winston.console)
+      ],
+    });
+    logger.stream = {
+      write: (message: string) => {
+        // use the 'info' log level so the output will be picked up by both transports (file and console)
+        logger.info(message);
+      },
+    };
+    this.express.use(morgan('combined', { stream: logger.stream }))
+    globalAny.logs.push({
+      date: new Date(),
+      name: 'App middleware logs'
+    })
   }
 
   public setConfigFiles() {
@@ -39,7 +87,8 @@ export class App {
       optional: true
     })
     const coreConfigs: any = {
-      files: systemConfigs
+      files: systemConfigs,
+      logs: logsConfigs
     }
     this.configs.global = arrayUnique(Object.keys(configs).concat(Object.keys(coreConfigs)))
       .reduce((accumulator: any, key: any) => {
@@ -47,6 +96,10 @@ export class App {
         return accumulator
       }, {})
     console.log('Configs Files Loaded')
+    globalAny.logs.push({
+      date: new Date(),
+      name: 'App Config Files Loaded'
+    })
   }
 
   public setPublic() {
@@ -56,6 +109,10 @@ export class App {
         this.configs.global.files.app_path.public
       )
     )
+    globalAny.logs.push({
+      date: new Date(),
+      name: 'App public folder'
+    })
   }
 
   public setTheme() {
@@ -64,6 +121,10 @@ export class App {
       this.express,
       this.configs.global.files
     )
+    globalAny.logs.push({
+      date: new Date(),
+      name: 'App init Theme'
+    })
   }
 
   /**
@@ -76,6 +137,10 @@ export class App {
         this.configs.global.files.app_path.contents
       )
     )
+    globalAny.logs.push({
+      date: new Date(),
+      name: 'App set content engine'
+    })
   }
 
   public routes() {
@@ -88,6 +153,10 @@ export class App {
       else {
         res.sendFile(req.path)
       }
+    })
+    globalAny.logs.push({
+      date: new Date(),
+      name: 'App set routes'
     })
   }
 }
