@@ -71,7 +71,15 @@ export class App {
         logger.info(message);
       },
     };
-    this.express.use(morgan('combined', { stream: logger.stream }))
+    this.express.use(morgan((tokens: any, req: express.Request, res: express.Response) => {
+      return [
+        tokens.method(req, res),
+        tokens.url(req, res),
+        tokens.status(req, res),
+        tokens.res(req, res, 'content-length'), '-',
+        tokens['response-time'](req, res), 'ms'
+      ].join(' ')
+    }, { stream: logger.stream }))
     globalAny.logs.push({
       date: new Date(),
       name: 'App middleware logs'
