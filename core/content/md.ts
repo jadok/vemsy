@@ -21,9 +21,6 @@ export const defineContentReader = (
         if (err) {
           return next(new Error(err.toString()))
         }
-        req.timers = [
-          new Date()
-        ]
         const rendered = markdown.markdown.toHTML(content.toString())
         if (typeof req.variables === 'undefined') {
           req.variables = {}

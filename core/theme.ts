@@ -97,9 +97,7 @@ export class ThemeManager {
   }
 
   public pageResolver(req: any, res: any) {
-    req.timers.push(new Date())
     const paths = testRoutes(Object.keys(this.pages), req.path)
-    req.timers.push(new Date())
     let globalStyle: any = null
     let template: any = null
     const styles: any[] = []
@@ -124,14 +122,7 @@ export class ThemeManager {
         styles.push(responseStyle)
       }
     })
-    req.timers.push(new Date())
     this.prepareVariables(req, globalStyle, styles)
-    req.timers.push(new Date())
-    const initDate = req.timers[0]
-    req.timers.forEach((trace: Date) => {
-      console.log(`Page:  ${(trace.valueOf() - initDate.valueOf())}ms`)
-    })
-    console.log(`Page loaded in ${(new Date()).valueOf() - initDate.valueOf()}ms`)
     res.render(template.file, req.variables)
   }
 }
