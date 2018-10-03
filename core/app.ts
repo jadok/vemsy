@@ -6,6 +6,10 @@ import './json'
 
 import { mergeConfiguration } from './config'
 import * as systemConfigs from './configs/files.json'
+import * as logsConfigs from './configs/logs.json'
+
+import { logMiddleware } from './middlewares/logs'
+
 import { defineContentReader } from './content/md'
 import { ThemeManager } from './theme'
 import { arrayUnique } from './utils/array'
@@ -24,10 +28,15 @@ export class App {
   constructor() {
     this.express = express()
     this.setConfigFiles()
+    this.setLoggers()
     this.setPublic()
     this.setContentEngine()
     this.setTheme()
     this.routes()
+  }
+
+  public setLoggers() {
+    this.express.use(logMiddleware)
   }
 
   public setConfigFiles() {
@@ -39,7 +48,8 @@ export class App {
       optional: true
     })
     const coreConfigs: any = {
-      files: systemConfigs
+      files: systemConfigs,
+      logs: logsConfigs
     }
     this.configs.global = arrayUnique(Object.keys(configs).concat(Object.keys(coreConfigs)))
       .reduce((accumulator: any, key: any) => {
