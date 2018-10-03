@@ -15,13 +15,6 @@ import { ThemeManager } from './theme'
 import { arrayUnique } from './utils/array'
 import filePathToPath from './utils/path';
 
-interface ILogs {
-  name: string;
-  date: Date;
-}
-
-const globalAny: any = global
-
 /**
  * Express constructor
  */
@@ -34,11 +27,6 @@ export class App {
    * Set up express and middleware
    */
   constructor() {
-    globalAny.logs = []
-    globalAny.logs.push({
-      date: new Date(),
-      name: 'App constructor'
-    })
     //  logs.push()
     this.express = express()
     this.setConfigFiles()
@@ -47,12 +35,6 @@ export class App {
     this.setContentEngine()
     this.setTheme()
     this.routes()
-
-    const initDate = globalAny.logs[0].date
-    globalAny.logs.forEach((action: ILogs) => {
-      console.log(`${action.name}:  ${(action.date.valueOf() - initDate.valueOf())}ms`)
-    })
-    console.log(`Bootstraped in ${(new Date()).valueOf() - initDate.valueOf()}ms`)
   }
 
   public setLoggers() {
@@ -80,10 +62,6 @@ export class App {
         tokens['response-time'](req, res), 'ms'
       ].join(' ')
     }, { stream: logger.stream }))
-    globalAny.logs.push({
-      date: new Date(),
-      name: 'App middleware logs'
-    })
   }
 
   public setConfigFiles() {
@@ -104,10 +82,6 @@ export class App {
         return accumulator
       }, {})
     console.log('Configs Files Loaded')
-    globalAny.logs.push({
-      date: new Date(),
-      name: 'App Config Files Loaded'
-    })
   }
 
   public setPublic() {
@@ -117,10 +91,6 @@ export class App {
         this.configs.global.files.app_path.public
       )
     )
-    globalAny.logs.push({
-      date: new Date(),
-      name: 'App public folder'
-    })
   }
 
   public setTheme() {
@@ -129,10 +99,6 @@ export class App {
       this.express,
       this.configs.global.files
     )
-    globalAny.logs.push({
-      date: new Date(),
-      name: 'App init Theme'
-    })
   }
 
   /**
@@ -145,10 +111,6 @@ export class App {
         this.configs.global.files.app_path.contents
       )
     )
-    globalAny.logs.push({
-      date: new Date(),
-      name: 'App set content engine'
-    })
   }
 
   public routes() {
@@ -161,10 +123,6 @@ export class App {
       else {
         res.sendFile(req.path)
       }
-    })
-    globalAny.logs.push({
-      date: new Date(),
-      name: 'App set routes'
     })
   }
 }
