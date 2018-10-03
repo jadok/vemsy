@@ -1,19 +1,18 @@
 import * as express from 'express'
 import * as path from 'path'
 const includeAll = require('include-all')
-const morgan = require('morgan');
-const winston = require('winston')
 
 import './json'
 
 import { mergeConfiguration } from './config'
 import * as systemConfigs from './configs/files.json'
-import * as logsConfigs from './configs/loger.json'
+import * as logsConfigs from './configs/logs.json'
+
+import { logMiddleware } from './middlewares/logs'
 
 import { defineContentReader } from './content/md'
 import { ThemeManager } from './theme'
 import { arrayUnique } from './utils/array'
-import filePathToPath from './utils/path';
 
 /**
  * Express constructor
@@ -27,7 +26,6 @@ export class App {
    * Set up express and middleware
    */
   constructor() {
-    //  logs.push()
     this.express = express()
     this.setConfigFiles()
     this.setLoggers()
@@ -38,30 +36,7 @@ export class App {
   }
 
   public setLoggers() {
-    const configFile = this.configs.global.logs.winston.file
-    configFile.filename = filePathToPath(configFile.filename)
-    const logger = winston.createLogger({
-      exitOnError: false, // do not exit on handled exceptions
-      transports: [
-        new winston.transports.File(configFile),
-        new winston.transports.Console(this.configs.global.logs.winston.console)
-      ],
-    });
-    logger.stream = {
-      write: (message: string) => {
-        // use the 'info' log level so the output will be picked up by both transports (file and console)
-        logger.info(message);
-      },
-    };
-    this.express.use(morgan((tokens: any, req: express.Request, res: express.Response) => {
-      return [
-        tokens.method(req, res),
-        tokens.url(req, res),
-        tokens.status(req, res),
-        tokens.res(req, res, 'content-length'), '-',
-        tokens['response-time'](req, res), 'ms'
-      ].join(' ')
-    }, { stream: logger.stream }))
+    this.express.use(logMiddleware)
   }
 
   public setConfigFiles() {
