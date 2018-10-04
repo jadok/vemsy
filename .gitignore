@@ -7,3 +7,4 @@ alternative
 .sass-cache
 doc
 bin
+gulp/node_modules

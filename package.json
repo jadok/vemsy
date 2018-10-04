@@ -42,7 +42,7 @@
     "pm2": "^3.0.3",
     "tslint": "^5.11.0",
     "tslint-microsoft-contrib": "^5.0.3",
-    "typescript": "^3.0.3"
+    "typescript": "^3.1.1"
   },
   "dependencies": {
     "@types/morgan": "^1.7.35",
@@ -51,6 +51,8 @@
     "express": "4.16.3",
     "fs": "0.0.1-security",
     "generate-folders": "^0.1.0",
+    "gulp": "^4.0.0",
+    "gulp-typescript": "^5.0.0-alpha.3",
     "include-all": "4.0.3",
     "markdown": "0.5.0",
     "morgan": "^1.9.1",

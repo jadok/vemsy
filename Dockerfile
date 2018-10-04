@@ -2,24 +2,25 @@ FROM keymetrics/pm2:8-alpine
 
 LABEL maintainer="jadok"
 
-WORKDIR /app
+RUN mkdir /app
 
-COPY app /app/app
-COPY core /app/core
-COPY dist /app/dist
-COPY public /app/public
-COPY webpack /app/webpack
-COPY package.json /app/package.json
-COPY tsconfig.json /app/tsconfig.json
-COPY tslint.json /app/tslint.json
-COPY pm2.json /app/pm2.json
-COPY index.js /app/
+COPY ./bin /app/bin
+COPY ./dist /app/dist
+COPY ./node_modules /app/node_modules
+COPY ./package.json /app/package.json
+COPY ./tsconfig.json /app/tsconfig.json
+COPY ./pm2.json /app/pm2.json
+COPY ./index.js /app/
 
 ENV NPM_CONFIG_LOGLEVEL warn
 
-RUN npm install
-RUN ls -la /app
+RUN cd /app && npm link
+
+WORKDIR /opt/vemsy
+
+RUN cd /opt/vemsy && vemsy
+RUN cd /opt/vemsy && npm install -S /app
 
 EXPOSE 9999
 
-CMD [ "pm2-runtime", "start", "/app/pm2.json" ]
+CMD [ "pm2-runtime", "start", "/opt/vemsy/pm2.json" ]

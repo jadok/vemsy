@@ -1,0 +1,7 @@
+app:
+  image: vemsy:app
+  volumes:
+  - ./dist:/app/dist
+  - ./bin:/app/bin
+  ports:
+  - "9999:9999"
