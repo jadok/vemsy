@@ -36,7 +36,7 @@ export class App {
   }
 
   public setLoggers() {
-    this.express.use(logMiddleware)
+    this.express.use(logMiddleware({ file: this.configs.global.logs }))
   }
 
   public setConfigFiles() {
