@@ -36,7 +36,7 @@ export class App {
   }
 
   public setLoggers() {
-    this.express.use(logMiddleware)
+    this.express.use(logMiddleware({ file: this.configs.global.logs }))
   }
 
   public setConfigFiles() {
@@ -70,6 +70,7 @@ export class App {
 
   public setTheme() {
     console.log('setting theme')
+    console.log(this.configs.global)
     this.theme = new ThemeManager(
       this.express,
       this.configs.global.files
