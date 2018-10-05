@@ -11,6 +11,8 @@ COPY ./package.json /app/package.json
 COPY ./tsconfig.json /app/tsconfig.json
 COPY ./pm2.json /app/pm2.json
 COPY ./index.js /app/
+RUN chown root:root /app/bin/ /app/dist/ -R
+
 
 ENV NPM_CONFIG_LOGLEVEL warn
 
@@ -18,8 +20,8 @@ RUN cd /app && npm link
 
 WORKDIR /opt/vemsy
 
-RUN cd /opt/vemsy && vemsy
-RUN cd /opt/vemsy && npm install -S /app
+RUN vemsy
+RUN npm install -S /app
 
 EXPOSE 9999
 

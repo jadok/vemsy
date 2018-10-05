@@ -41,3 +41,5 @@ gulp.task('watch:core', function () {
 })
 
 gulp.task('watch:all', gulp.series('compile:cli', 'copy:cli', 'compile:core', gulp.parallel('watch:cli', 'watch:core')))
+
+gulp.task('default', gulp.series('watch:all'));
