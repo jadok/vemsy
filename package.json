@@ -12,13 +12,11 @@
     "build:cli": "tsc cli/index.ts --outDir bin && cp cli/.setup-folder bin/ -r",
     "build:all": "npm run build:project && npm run build:cli",
     "clean": "rm -fr doc/* dist/* bin/*",
-    "pm2:start": "pm2 start pm2.json",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "test": "nyc mocha --recursive --require ts-node/register ./tests/**/*.spec.ts ./tests/**/**/*.spec.ts ./tests/**.spec.ts",
     "coverage": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
     "benchmark": "ts-node benchmark/index.ts",
-    "doc": "typedoc core/ --out doc/",
-    "global:test": "npm run build:all && sudo npm link"
+    "doc": "typedoc core/ --out doc/"
   },
   "repository": {
     "type": "git",

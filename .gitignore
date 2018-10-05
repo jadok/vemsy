@@ -6,5 +6,5 @@ alternative
 .nyc_output
 .sass-cache
 doc
-bin
+bin/
 gulp/node_modules
