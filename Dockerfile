@@ -1,6 +1,24 @@
-FROM keymetrics/pm2:8-alpine
+FROM ubuntu:18.04
 
 LABEL maintainer="jadok"
+
+ENV NODE_VERSION 8.x
+
+ENV DEBIAN_FRONTEND=noninteractive LANG=C.UTF-8
+
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends curl zip unzip net-tools vim less wget bash gnupg
+RUN apt-get install -y ca-cacert ca-certificates \
+    && update-ca-certificates
+# Install Node.js
+RUN curl -sL https://deb.nodesource.com/setup_$NODE_VERSION -o nodesource_setup.sh \
+  && bash ./nodesource_setup.sh \
+  && apt-get install -y nodejs
+
+RUN node -v
+RUN npm -v
+
+RUN npm install -g npm && npm i -g pm2
 
 RUN mkdir /app
 
@@ -11,8 +29,6 @@ COPY ./package.json /app/package.json
 COPY ./tsconfig.json /app/tsconfig.json
 COPY ./pm2.json /app/pm2.json
 COPY ./index.js /app/
-RUN chown root:root /app/bin/ /app/dist/ -R
-
 
 ENV NPM_CONFIG_LOGLEVEL warn
 
