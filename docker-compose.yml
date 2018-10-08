@@ -9,6 +9,7 @@ app:
 compile:
   image: vemsy/compile
   container_name: vemsy_compile
+  tty: true
   volumes:
   # OUTPUT
   - ./dist:/app/dist
