@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 
 LABEL maintainer="jadok"
 
-ENV NODE_VERSION 8.x
+ENV NODE_VERSION 10.x
 
 ENV DEBIAN_FRONTEND=noninteractive LANG=C.UTF-8
 
@@ -15,10 +15,9 @@ RUN curl -sL https://deb.nodesource.com/setup_$NODE_VERSION -o nodesource_setup.
   && bash ./nodesource_setup.sh \
   && apt-get install -y nodejs
 
+RUN npm install -g npm && npm i -g pm2
 RUN node -v
 RUN npm -v
-
-RUN npm install -g npm && npm i -g pm2
 
 RUN mkdir /app
 
@@ -34,9 +33,11 @@ ENV NPM_CONFIG_LOGLEVEL warn
 
 RUN cd /app && npm link
 
+RUN chmod +x /app /usr/bin/vemsy -R 
+
 WORKDIR /opt/vemsy
 
-RUN vemsy
+RUN /usr/bin/vemsy
 RUN npm install -S /app
 
 EXPOSE 9999
