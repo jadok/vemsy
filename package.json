@@ -59,6 +59,7 @@
     "sass": "^1.13.1",
     "ts-node": "^7.0.1",
     "twig": "1.12.0",
+    "util": "^0.11.0",
     "winston": "^3.1.0"
   },
   "nyc": {
@@ -77,6 +78,7 @@
       "bin",
       "cli",
       "dist",
+      "gulp",
       "doc",
       "node_modules",
       "webpack",

@@ -28,11 +28,6 @@ export class App {
   constructor() {
     this.express = express()
     this.setConfigFiles()
-    this.setLoggers()
-    this.setPublic()
-    this.setContentEngine()
-    this.setTheme()
-    this.routes()
   }
 
   public setLoggers() {
