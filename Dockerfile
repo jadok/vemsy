@@ -38,4 +38,4 @@ RUN vemsy && npm install -S /app
 
 EXPOSE 9999 9998
 
-CMD [ "pm2-runtime", "start", "/opt/vemsy/pm2.json" ]
+CMD [ "pm2-runtime", "start", "pm2.json" ]
