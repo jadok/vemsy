@@ -1,8 +1,10 @@
 {
     "apps": [{
-      "name": "vemsy",
+      "name": "app",
+      "cwd": "/opt/vemsy",
       "script": "index.js",
       "watch": true,
+      "ignore_watch": ["node_modules", "public", "sql", "test", "package.json"],
       "env": {
         "NODE_ENV": "development"
       },
