@@ -41,3 +41,33 @@ _PS: You do not need to re install the bootstrap if you did not update the cli o
 By default, typescript is compiled and executed on the fly with [ts-node](http://npmjs.com/package/ts-node), if you prefer you can compile it with `tsc`, though the easiest way to execute it is with `ts-node`.
 
 `node index.js`
+
+## Docker development environment
+
+Both docker images are based on ubuntu with the installation of nodejs on top of it.
+
+### vemsy_compile
+
+A Docker image is made for compiling the project with [gulp](https://npmjs.com/package/gulp).
+It use as the gulp configs in the `gulp` folder.
+This image with compile the `core`and `cli` folders in their respective output folders `dist` et `bin`.
+
+### vemsy_app
+
+A Docker image is made to launch the implementation of the app.
+
+This image :
+
+- used the output folders of vemsy_compile
+- install globally the library*
+- use the cli to generate the boilerplate of the app
+- execute the app in watch mode ([pm2](https://npmjs.com/package/pm2))
+
+*If the cli has been updated, the image should be regenerate right now.
+
+### Use it
+
+The 2 docker images are built by `build.sh` and then a docker-compose mount the images.
+The script `run.sh` do both things.
+
+**Before using it be sure to compile once the code `npm run build:all`**
