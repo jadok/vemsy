@@ -41,6 +41,10 @@ export class ThemeManager {
 
   constructor(app: Express, configs: any) {
     this.name = configs.theme_name
+    console.log('theme path', configs.app_path.themes)
+    console.log('theme_name', this.name)
+    console.log('paths', filePathToPath(configs.app_path.themes))
+    console.log('p', join(filePathToPath(configs.app_path.themes), this.name))
     this.path = join(filePathToPath(configs.app_path.themes), this.name)
     this.motor = factoryView(configs.theme_motor, app, join(this.path, 'views'))
     this.styleManager = new StyleManager(join(this.path, 'styles'), filePathToPath(configs.app_path.public))

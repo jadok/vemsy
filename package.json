@@ -12,13 +12,11 @@
     "build:cli": "tsc cli/index.ts --outDir bin && cp cli/.setup-folder bin/ -r",
     "build:all": "npm run build:project && npm run build:cli",
     "clean": "rm -fr doc/* dist/* bin/*",
-    "pm2:start": "pm2 start pm2.json",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "test": "nyc mocha --recursive --require ts-node/register ./tests/**/*.spec.ts ./tests/**/**/*.spec.ts ./tests/**.spec.ts",
     "coverage": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
     "benchmark": "ts-node benchmark/index.ts",
-    "doc": "typedoc core/ --out doc/",
-    "global:test": "npm run build:all && sudo npm link"
+    "doc": "typedoc core/ --out doc/"
   },
   "repository": {
     "type": "git",
@@ -42,7 +40,7 @@
     "pm2": "^3.0.3",
     "tslint": "^5.11.0",
     "tslint-microsoft-contrib": "^5.0.3",
-    "typescript": "^3.0.3"
+    "typescript": "^3.1.1"
   },
   "dependencies": {
     "@types/morgan": "^1.7.35",
@@ -51,6 +49,8 @@
     "express": "4.16.3",
     "fs": "0.0.1-security",
     "generate-folders": "^0.1.0",
+    "gulp": "^4.0.0",
+    "gulp-typescript": "^5.0.0-alpha.3",
     "include-all": "4.0.3",
     "markdown": "0.5.0",
     "morgan": "^1.9.1",
