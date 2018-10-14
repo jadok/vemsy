@@ -4,7 +4,7 @@ import * as httpMocks from 'node-mocks-http'
 
 import { routingFileMiddleware } from '../../core/middlewares/routingFile'
 
-describe('middlewares - routing markdown', async () => {
+describe('middlewares - routing markdown', () => {
   const viewPath = '/'
   it('should defined a markdown file', () => {
     const request  = httpMocks.createRequest({
