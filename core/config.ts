@@ -17,7 +17,12 @@ export interface IConfigOption {
  * @param {boolean} silent
  *   if true does not display warning
  */
-export const mergeConfigurationWarn = (newConfiguration: any, formatedKey: string, options: IConfigOption, silent: boolean) => {
+export const mergeConfigurationWarn = (
+  newConfiguration: any,
+  formatedKey: string,
+  options: IConfigOption,
+  silent: boolean
+) => {
   if (newConfiguration.hasOwnProperty(formatedKey)) {
     if (options.optional) {
       if (silent) {

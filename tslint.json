@@ -13,5 +13,10 @@
     "trailing-comma": false,
     "ban-types": false,
     "one-line": false
+  },
+  "linterOptions": {
+    "exclude": [
+      "./**/*.json"
+    ]
   }
 }

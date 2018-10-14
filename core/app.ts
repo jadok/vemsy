@@ -8,7 +8,10 @@ import { mergeConfiguration } from './config'
 import * as systemConfigs from './configs/files.json'
 import * as logsConfigs from './configs/logs.json'
 
+import { dataMiddleware } from './middlewares/data'
 import { logMiddleware } from './middlewares/logs'
+import { markdownMiddleware } from './middlewares/markdown'
+import { routingFileMiddleware } from './middlewares/routingFile'
 
 import { defineContentReader } from './content/md'
 import { ThemeManager } from './theme'
@@ -28,11 +31,6 @@ export class App {
   constructor() {
     this.express = express()
     this.setConfigFiles()
-    this.setLoggers()
-    this.setPublic()
-    this.setContentEngine()
-    this.setTheme()
-    this.routes()
   }
 
   public setLoggers() {
@@ -82,11 +80,9 @@ export class App {
    */
   public setContentEngine() {
     console.log('setting ContentEngine')
-    this.express.use(
-      defineContentReader(
-        this.configs.global.files.app_path.contents
-      )
-    )
+    this.express.use(routingFileMiddleware(this.configs.global.files.app_path.contents))
+    this.express.use(dataMiddleware)
+    this.express.use(markdownMiddleware)
   }
 
   public routes() {

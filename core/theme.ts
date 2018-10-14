@@ -97,7 +97,7 @@ export class ThemeManager {
     req.variables.globalStyle = globalStyle
     req.variables.styles = styles
     req.variables.title = title[title.length - 1]
-    req.variables.md_data = req.markdown
+    req.variables.md_data = req.variables.markdown
   }
 
   public pageResolver(req: any, res: any) {
