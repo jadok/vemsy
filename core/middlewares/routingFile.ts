@@ -1,11 +1,4 @@
-import { Request, Response } from 'express'
-
-export interface IRequestFile extends Request {
-  variables: {
-    file?: string;
-    assetFile?: string
-  }
-}
+import { Response } from 'express'
 
 export const routingFileMiddleware = (
   viewPath: string
