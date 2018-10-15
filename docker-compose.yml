@@ -1,16 +1,11 @@
 app:
-<<<<<<< HEAD
   image: vemsy/app
   container_name: vemsy_app
-=======
-  image: vemsy:app
->>>>>>> feat: docker start
   volumes:
   - ./dist:/app/dist
   - ./bin:/app/bin
   ports:
   - "9999:9999"
-<<<<<<< HEAD
 compile:
   image: vemsy/compile
   container_name: vemsy_compile
@@ -31,5 +26,3 @@ compile:
   - ./node_modules:/app/node_modules
   - ./tsconfig-main.json:/app/tsconfig-main.json
   - ./tsconfig.json:/app/tsconfig.json
-=======
->>>>>>> feat: docker start
