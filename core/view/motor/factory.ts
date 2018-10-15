@@ -1,7 +1,7 @@
 import { Express } from 'express'
 
-import ViewMotor from './view'
 import TwigMotor from './twig'
+import ViewMotor from './view'
 
 export interface IViewTemplate {
   motor: ViewMotor
