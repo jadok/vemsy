@@ -13,7 +13,6 @@ import { logMiddleware } from './middlewares/logs'
 import { markdownMiddleware } from './middlewares/markdown'
 import { routingFileMiddleware } from './middlewares/routingFile'
 
-import { defineContentReader } from './content/md'
 import { ThemeManager } from './theme'
 import { arrayUnique } from './utils/array'
 
