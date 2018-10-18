@@ -14,10 +14,17 @@ When you are creating a documentation or synthesizing a subject you read on mayb
 ## How to use it ?
 
 This package is not ready yet to be publish. It should be publish soon.
-Meanwhile it is possible to use it through the [development environment](https://github.com/jadok/vemsy/tree/master/cli/.setup-folder/app/contents/DevEnv.md).
+Meanwhile it is possible to use it through the [development environment](./cli/.setup-folder/app/contents/DevEnv.md).
 
 The project provide a library extending `express`, rendering **markdown** throught `twig` view template.
 
 The project provide as well a boilerplate through [generate-folders](https://www.npmjs.com/package/generate-folders) to deploy and install the setup folders.
 
 The website is served by default on the port [9999](http://localhost:9999)
+
+## Features
+
+The list of all the features currently available:
+
+- Render markdown files
+- Compile style files (sass / scss) and render it in the public folder

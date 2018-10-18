@@ -5,18 +5,20 @@ import { IStyleCompiler } from './style'
 import { SassStyle } from './sassStyle'
 
 export class StyleManager {
-  public compiler: IStyleCompiler[] = []
+  public compilers: IStyleCompiler[] = []
   public themePath: string = ''
   public publicPath: string = ''
 
   constructor(themePath: string, publicPath: string) {
     this.themePath = themePath
     this.publicPath = publicPath
-    this.setCompilers()
   }
 
-  public setCompilers() {
-    this.compiler.push(new SassStyle())
+  /**
+   * Defined all the compiler.
+   */
+  public setCompilers(): void {
+    this.compilers.push(new SassStyle())
   }
 
   /**
@@ -25,22 +27,32 @@ export class StyleManager {
    * @param filename
    *  filename to be compiled.
    */
-  public compile(filename: string) {
+  public compile(filename: string): IStyleCompiler[] {
     const fileDirs = filename.split('/')
     const srcTheme: string = join(this.themePath, ...fileDirs.slice(0, fileDirs.length - 1))
-    this.compiler
+    const matchedCompilers = this.compilers
       .reduce((acc: IStyleCompiler[], curr: IStyleCompiler) => {
         if (curr.matchExtension(filename)) {
           return [curr]
         }
         return acc
       }, [])
+    matchedCompilers
       .forEach((compiler: IStyleCompiler) =>
         compiler.compile(fileDirs, srcTheme, this.publicPath))
+    return matchedCompilers
   }
 
-  public resolver(filename: string) {
-    return this.compiler
+  /**
+   * Retreive the public path of a source file.
+   *
+   * @param filename
+   *   filename of the style file.
+   * @return
+   *   public style path
+   */
+  public resolver(filename: string): string {
+    return this.compilers
       .reduce((acc: string, curr: IStyleCompiler) => {
         if (curr.matchExtension(filename)) {
           return curr.resolver(filename)

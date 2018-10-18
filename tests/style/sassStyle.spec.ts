@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import 'mocha'
+import { join } from 'path'
 
 import { SassStyle } from '../../core/style/sassStyle'
 
@@ -7,24 +8,24 @@ describe('Sass Style', () => {
   const sassStyle = new SassStyle()
   const testFiles: any[] = [
     {
-      file: 'main.scss',
       expectMatch: true,
-      expectResolver: '/css/main.css'
+      expectResolver: join('/', 'css', 'main.css'),
+      file: 'main.scss'
     },
     {
-      file: 'main.css',
       expectMatch: false,
-      expectResolver: '/css/main.css'
+      expectResolver: join('/', 'css', 'main.css'),
+      file: 'main.css'
     },
     {
-      file: 'main.scsss',
       expectMatch: false,
-      expectResolver: '/css/main.css'
+      expectResolver: join('/', 'css', 'main.css'),
+      file: 'main.scsss'
     },
     {
-      file: '',
       expectMatch: false,
-      expectResolver: '/css/.css'
+      expectResolver: join('/', 'css', '.css'),
+      file: ''
     }
   ]
   testFiles.forEach((test) => {
