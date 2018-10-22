@@ -3,7 +3,7 @@ import { join } from 'path'
 
 const includeAll = require('include-all')
 
-import { factoryView, IViewTemplate } from './view/motor/factory'
+import { factoryView, IViewTemplate } from './view/factory'
 
 import { StyleManager } from './style/manager'
 

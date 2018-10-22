@@ -1,10 +1,14 @@
 # Vemsy
 
-This project categorize 2 things that might be confusing for beginner:
+In the different files documented in those folders, you will find some links tagged with "IDE link":
+_Some links will make you go to files outside of the public folder that is why their are tagged as "IDE link" which means that the link works on your IDE will follow those links._
 
-- Content
-- Template
+## [development environment](./DevEnv.md)
 
-In this project the content of your website is described in the Markdown file and Markdown file are sometime used as template file but that is not how it works in this project.
+## [configuration](./config.md)
 
-In this project the template is done by another file type (Twig) by default to structure how to render the content of your site. It should be possible to use something else instead.
+## [view](./view.md)
+
+## [middleware](./middleware/README.md)
+
+## [theme](./theme.md)
