@@ -92,7 +92,7 @@
       "lcov",
       "text-summary"
     ],
-    "cache": true,
+    "cache": false,
     "all": true,
     "temp-directory": "./alternative-tmp",
     "report-dir": "./alternative"
