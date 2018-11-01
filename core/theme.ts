@@ -104,7 +104,11 @@ export class ThemeManager {
 
   public pageResolver(req: any, res: any) {
     const paths = testRoutes(Object.keys(this.pages), req.path)
-    const resolver = new PageAssetsResolver(this.pages, paths, this.styleManager.resolver)
+    const resolver = new PageAssetsResolver(
+      this.pages,
+      paths,
+      this.styleManager.resolver
+    )
     const { globalStyle, template, styles } = resolver.resolve()
     this.prepareVariables(req, globalStyle, styles)
     res.render(template.file, req.variables)

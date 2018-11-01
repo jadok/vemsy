@@ -28,3 +28,5 @@ The list of all the features currently available:
 
 - Render markdown files
 - Compile style files (sass / scss) and render it in the public folder
+- Routing inheritance ([more information](https://github.com/jadok/vemsy/blob/master/cli/.setup-folder/app/contents/theme/page))
+- Rich style definition by page ([more information](https://github.com/jadok/vemsy/blob/master/cli/.setup-folder/app/contents/theme/page#Style))
