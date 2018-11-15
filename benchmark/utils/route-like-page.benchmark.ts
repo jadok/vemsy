@@ -17,9 +17,8 @@ const routes = [
   '/author/me'
 ]
 
-export const test = (suite: any):void => routes.forEach((route) => {
+export const test = (suite: any): void => routes.forEach((route) => {
   suite.add('route-like-page: ' + route, () => {
     testRoutes(paths, route)
   })
 })
-

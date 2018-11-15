@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import 'mocha'
 
+import { arrayCompare } from '../../core/utils/array'
 import { descOrder, testRoutes } from '../../core/utils/route-like-page'
 
 describe('regex route', () => {
@@ -19,4 +20,34 @@ describe('regex route', () => {
     const result = descOrder([ 'a', 'a', 'a' ], [ 'a', 'a', 'a' ]);
     expect(result).to.equal(0);
   });
+
+  const routingTest = [
+    {
+      expect: [
+        '/plop',
+        '/'
+      ],
+      label: 'should find 2 routes',
+      path: '/plop/me',
+      routes: [
+        '/',
+        '/plop',
+        '/name',
+        '/author',
+        '/authoriste',
+        '/contnet',
+        '/john/tra',
+        '/voiture',
+        '/singe/'
+      ]
+    }
+  ]
+  routingTest.forEach((test) => {
+    it('Routes test - ' + test.label, () => {
+      const routes = testRoutes(test.routes, test.path)
+      expect(routes.length).to.equal(test.expect.length)
+      expect(arrayCompare(routes, test.expect)).to.equal(true)
+    })
+  })
+
 })

@@ -11,6 +11,8 @@ import { arrayUnique } from './utils/array'
 import filePathToPath from './utils/path'
 import { testRoutes } from './utils/route-like-page'
 
+import { PageAssetsResolver } from './theme/pageAssetsResolver'
+
 export const themeAttributes = (key: string, type: string) => key.charAt(0).toUpperCase() + key.slice(1) + type
 
 export const checkSubVars = (obj: any, key: string, attribute: string) => {
@@ -102,30 +104,12 @@ export class ThemeManager {
 
   public pageResolver(req: any, res: any) {
     const paths = testRoutes(Object.keys(this.pages), req.path)
-    let globalStyle: any = null
-    let template: any = null
-    const styles: any[] = []
-    paths.forEach((myPath: string) => {
-      if (this.pages[myPath].template !== null) {
-        template = this.pages[myPath].template
-      }
-      if (!globalStyle && this.pages[myPath].generalStyle) {
-        globalStyle = this.styleManager.resolver(this.pages[myPath].generalStyle)
-        styles.slice(0, styles.length)
-        const responseStyle = {
-          ...this.pages[myPath].style,
-          file: this.styleManager.resolver(this.pages[myPath].style.file)
-        }
-        styles.push(responseStyle)
-      }
-      else {
-        const responseStyle = {
-          ...this.pages[myPath].style,
-          file: this.styleManager.resolver(this.pages[myPath].style.file)
-        }
-        styles.push(responseStyle)
-      }
-    })
+    const resolver = new PageAssetsResolver(
+      this.pages,
+      paths,
+      this.styleManager.resolver
+    )
+    const { globalStyle, template, styles } = resolver.resolve()
     this.prepareVariables(req, globalStyle, styles)
     res.render(template.file, req.variables)
   }

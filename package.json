@@ -13,7 +13,7 @@
     "build:all": "npm run build:project && npm run build:cli",
     "clean": "rm -fr doc/* dist/* bin/*",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
-    "test": "nyc mocha --recursive --require ts-node/register ./tests/**/*.spec.ts ./tests/**/**/*.spec.ts ./tests/**.spec.ts",
+    "test": "nyc mocha --recursive ./tests/**/*.spec.ts ./tests/**/**/*.spec.ts ./tests/**.spec.ts",
     "coverage": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
     "benchmark": "ts-node benchmark/index.ts",
     "doc": "typedoc core/ --out doc/"
@@ -91,6 +91,9 @@
     "reporter": [
       "lcov",
       "text-summary"
+    ],
+    "require": [
+      "ts-node/register"
     ],
     "cache": true,
     "all": true,
