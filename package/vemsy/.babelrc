@@ -1,0 +1,21 @@
+{
+  "env": {
+    "development": {
+      "presets": [
+        ["env", {"targets": { "node": "10" }}]
+      ],
+      "plugins": [
+        "add-module-exports"
+      ]
+    },
+    "production": {
+      "presets": [
+        ["env", {"targets": { "node": "10" }}],
+        "minify"
+      ],
+      "plugins": [
+        "add-module-exports"
+      ]
+    }
+  }
+}
