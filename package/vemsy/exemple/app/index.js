@@ -6,6 +6,9 @@ const instances = [
   // add the configurations files in app.configs
   setup.config,
 
+  // add all the global libraries
+  setup.globalLibrary,
+
   // init express server
   setup.express,
 
