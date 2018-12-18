@@ -1,4 +1,5 @@
 const markdown = require('markdown')
+const asyncHandler = require('../utils/async.js')
 
 const markdownMiddleware = (req, res, next) => {
   if (typeof req.variables.data !== 'undefined') {
@@ -8,4 +9,4 @@ const markdownMiddleware = (req, res, next) => {
   return next()
 }
 
-module.exports = markdownMiddleware
+module.exports = asyncHandler(markdownMiddleware)

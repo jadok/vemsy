@@ -17,17 +17,12 @@ const instances = [
 ].map((setupClass) => new setupClass())
 
 // add middlewares to express
-const middlewares = (() => {
-  if (!(app.configs && app.configs.files.app_path.contents)) {
-    console.error('configuration has not been set up.')
-  }
-  return new setup.expressMiddleware([
-    middleware.routingFile(app.configs.files.app_path.contents),
-    middleware.data,
-    middleware.markdown
-  ])
-})()
-instances.push(middlewares)
+instances.push(new setup.expressMiddleware([
+  middleware.routingFile,
+  middleware.data,
+  middleware.markdown,
+  middleware.render
+]))
 
 // launch the app
 instances.push(new setup.lift())

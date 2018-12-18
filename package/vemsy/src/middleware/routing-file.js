@@ -1,6 +1,6 @@
 const routingFileMiddleware = (
   viewPath
-) => (req, res, next) => {
+) => (req) => {
   if (typeof req.variables === 'undefined') {
     req.variables = {}
   }
@@ -12,7 +12,11 @@ const routingFileMiddleware = (
   else {
     req.variables.assetFile = req.originalUrl.toString()
   }
-  next()
 }
 
-module.exports = routingFileMiddleware
+const configureMiddleware = () => routingFileMiddleware(app.configs.files.app_path.contents)
+
+module.exports = {
+  configureMiddleware,
+  routingFileMiddleware
+}

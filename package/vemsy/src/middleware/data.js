@@ -2,6 +2,7 @@ const fs = require('fs')
 const util = require('util')
 
 const filePathToPath = require('../utils/path.js')
+const asyncHandler = require('../utils/async.js')
 
 const readFile = util.promisify(fs.readFile)
 
@@ -15,10 +16,10 @@ const dataMiddleware = async (req, res, next) => {
     req.variables.data = data
   }
   catch (e) {
-    console.error(e, req.variables.file)
+    console.error(e, req.variables, req.variables.file)
     req.variables.data = ''
   }
   return next()
 }
 
-module.exports = dataMiddleware
+module.exports = asyncHandler(dataMiddleware)

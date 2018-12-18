@@ -2,6 +2,7 @@ const { Task } = require('middleware-setup')
 
 module.exports = class extends Task {
   constructor(middlewares) {
+    super(middlewares)
     this.middlewares = middlewares
   }
 
@@ -9,6 +10,11 @@ module.exports = class extends Task {
     if (typeof app.server === 'undefined') {
       throw new Error('Server not up.')
     }
-    this.middlewares.forEach((middleware) => app.server(middleware))
+    this.middlewares.forEach((middleware) => {
+      t(middleware).isExpressMiddleware ?
+        app.server.use(middleware)
+        : app.server.use(middleware())
+    }
+    )
   }
 }
