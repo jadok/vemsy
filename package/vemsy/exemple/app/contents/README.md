@@ -11,4 +11,3 @@ _Some links will make you go to files outside of the public folder that is why t
 
 ## [middleware](./middleware/README.md)
 
-## [theme](./theme.md)
