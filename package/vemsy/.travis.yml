@@ -7,8 +7,8 @@ before_script:
   - npm install -g nyc mocha coveralls
 
 install:
-  - cd package/vemsy && npm install
-  - cd package/vemsy && npm run-script build
+  - npm install
+  - npm run-script build
 
 after_script:
-  - cd package/vemsy && npm run-script test
+  - npm run-script test
