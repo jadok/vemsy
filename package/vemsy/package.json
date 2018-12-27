@@ -5,8 +5,6 @@
   "main": "./lib/index.js",
   "scripts": {
     "test": "npm run lint && npm run test:only && npm run cover",
-    "test:prod": "cross-env BABEL_ENV=production npm run test",
-    "test:watch": "npm run test:only -- --watch",
     "test:only": "nyc mocha --require babel-core/register --require babel-polyfill --recursive ./test/**/*.test.js",
     "cover": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
     "build": "cross-env BABEL_ENV=development babel src --out-dir lib",
@@ -41,16 +39,12 @@
     "deepmerge": "^3.0.0",
     "express": "^4.16.3",
     "fs": "^0.0.1-security",
-    "generate-folders": "^0.1.0",
-    "gulp": "^4.0.0",
     "include-all": "^4.0.3",
     "markdown": "^0.5.0",
     "middleware-setup": "file:../../../middleware-pattern",
     "morgan": "^1.9.1",
     "path": "0.12.7",
     "path-to-regexp": "2.2.1",
-    "sass": "^1.13.1",
-    "twig": "^1.12.0",
     "typy": "^3.0.0",
     "winston": "^3.1.0"
   }
