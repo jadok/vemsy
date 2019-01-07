@@ -1,8 +1,0 @@
-const renderMiddleware = (req, res) => {
-  if (typeof req.variables.markdown !== 'undefined') {
-    res.set('Content-Type', 'text/html')
-    res.send(req.variables.markdown)
-  }
-}
-
-module.exports = renderMiddleware

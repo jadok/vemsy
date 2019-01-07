@@ -4,10 +4,10 @@ node_js:
   - "10"
 
 before_script:
-  - cd package/vemsy
   - npm install -g nyc mocha coveralls
 
 install:
+  - cd package/vemsy
   - npm install
   - npm run-script build
 

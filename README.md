@@ -37,4 +37,6 @@ The [entry point](./package/vemsy/example/app/index.js) defined all the tasks lo
 The list of all the features currently available:
 
 - Render markdown files following folder structure
+- Task loading setup
+- Add your own express middlewares
 

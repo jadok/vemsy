@@ -1,0 +1,58 @@
+{
+  "name": "vemsy",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.esm.js",
+  "scripts": {
+    "test": "npm run lint && npm run test:only && npm run cover",
+    "test:only": "nyc mocha --require babel-core/register --require babel-polyfill --recursive ./test/**/*.test.js",
+    "cover": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
+    "build": "cross-env NODE_ENV=development rollup -c",
+    "lint": "eslint src test"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=7.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jadok/vemsy.git"
+  },
+  "author": "Quentin <jadok> Jadeau",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jadok/vemsy/issues"
+  },
+  "homepage": "https://github.com/jadok/vemsy#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.2",
+    "cross-env": "^5.2.0",
+    "eslint": "^5.9.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "rollup": "^1.0.2",
+    "rollup-plugin-babel": "^4.2.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0"
+  },
+  "dependencies": {
+    "deepmerge": "^3.0.0",
+    "express": "^4.16.3",
+    "fs": "^0.0.1-security",
+    "include-all": "^4.0.3",
+    "markdown": "^0.5.0",
+    "middleware-setup": "^1.1.0",
+    "morgan": "^1.9.1",
+    "path": "0.12.7",
+    "path-to-regexp": "2.2.1",
+    "typy": "^3.0.0",
+    "winston": "^3.0.0"
+  }
+}

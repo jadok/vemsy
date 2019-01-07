@@ -1,10 +1,4 @@
-dist/
-node_modules/
-public/
-alternative-tmp
-alternative
+node_modules
 .nyc_output
-.sass-cache
-doc
-bin/
-gulp/node_modules
+lib
+coverage
