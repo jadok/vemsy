@@ -1,7 +1,7 @@
-const { assert } = require('chai')
+import { assert } from 'chai'
 
-const t = require('../../src/type/index.js')
-const getParamNames = require('../../src/utils/func.js')
+import t from '../../src/type/index.js'
+import getParamNames from '../../src/utils/func.js'
 
 describe('Custom type checking', () => {
   const errorNotMiddleware = 'Should not match an express middleware pattern'

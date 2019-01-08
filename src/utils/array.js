@@ -2,7 +2,7 @@ const filters = {
   onlyUnique: (value, index, self) => self.indexOf(value) === index
 }
 
-const arrayUnique = arr => arr.filter(filters.onlyUnique)
+export const arrayUnique = arr => arr.filter(filters.onlyUnique)
 
 /**
  * Compare 2 arrays.
@@ -15,7 +15,7 @@ const arrayUnique = arr => arr.filter(filters.onlyUnique)
  * @return {boolean}
  *   True if the 2 arrays are equalds.
  */
-const arrayCompare = (arr1, arr2) => {
+export const arrayCompare = (arr1, arr2) => {
   if (arr1.length !== arr2.length) {
     return false
   }
@@ -25,9 +25,4 @@ const arrayCompare = (arr1, arr2) => {
     }
     return acc
   }, true)
-}
-
-export default {
-  arrayCompare,
-  arrayUnique
 }

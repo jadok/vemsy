@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 import 'mocha'
-import * as httpMocks from 'node-mocks-http'
+import httpMocks from 'node-mocks-http'
 
-const { routingFileMiddleware } = require('../../src/middleware/routing-file.js')
+import { routingFileMiddleware } from '../../src/middleware/routing-file.js'
 
 describe('middlewares - routing markdown', () => {
   const viewPath = '/'

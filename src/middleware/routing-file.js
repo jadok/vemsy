@@ -1,4 +1,4 @@
-const routingFileMiddleware = (
+export const routingFileMiddleware = (
   viewPath
 ) => (req, res, next) => {
   if (typeof req.variables === 'undefined') {
@@ -15,9 +15,4 @@ const routingFileMiddleware = (
   return next()
 }
 
-const configureMiddleware = () => routingFileMiddleware(app.configs.files.app_path.contents)
-
-export default {
-  configureMiddleware,
-  routingFileMiddleware
-}
+export const configureMiddleware = () => routingFileMiddleware(app.configs.files.app_path.contents)

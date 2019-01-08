@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 import 'mocha'
-import * as httpMocks from 'node-mocks-http'
+import httpMocks from 'node-mocks-http'
 
-const markdownMiddleware = require('../../src/middleware/markdown.js')
+import markdownMiddleware from '../../src/middleware/markdown.js'
 
 describe('middlewares - markdown', () => {
   it('should transform markdown data (empty)', async () => {

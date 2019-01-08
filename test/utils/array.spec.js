@@ -1,7 +1,7 @@
-import { expect } from 'chai'
-import 'mocha'
+const { expect } = require('chai')
+require('mocha')
 
-import { arrayCompare, arrayUnique } from '../../src/utils/array.js'
+const { arrayCompare, arrayUnique } = require('../../src/utils/array.js')
 
 describe('Array Test', () => {
 

@@ -1,4 +1,4 @@
-const descOrder = (a, b) => b.length - a.length
+export const descOrder = (a, b) => b.length - a.length
 
 /**
  * Get the list of defined path matching the route.
@@ -11,7 +11,7 @@ const descOrder = (a, b) => b.length - a.length
  * @return
  *   list of defined path matching the route
  */
-const testRoutes = (paths, route) => {
+export const testRoutes = (paths, route) => {
   const matchingRoutes = paths.reduce((acc, path) => {
     const reg = new RegExp(path)
     const t = reg.test(route)
@@ -21,9 +21,4 @@ const testRoutes = (paths, route) => {
     return (acc)
   }, [])
   return matchingRoutes.sort(descOrder)
-}
-
-export default {
-  descOrder,
-  testRoutes
 }

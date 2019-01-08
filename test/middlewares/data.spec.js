@@ -1,7 +1,7 @@
-import { expect } from 'chai'
 import * as fs from 'fs'
+import { expect } from 'chai'
 import 'mocha'
-import * as httpMocks from 'node-mocks-http'
+import httpMocks from 'node-mocks-http'
 
 import dataMiddleware from '../../src/middleware/data.js'
 import filePathToPath from '../../src/utils/path.js'
