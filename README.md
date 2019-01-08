@@ -7,7 +7,7 @@
 
 ## What is it ?
 
-When coding, it is for me mandatory to write files with a limited number of lines and functions as well as 1 file >= 1 functionality.
+When coding, we like to write it is for me mandatory to write files with a limited number of lines and functions as well as 1 file >= 1 functionality.
 
 The question now is why would I not impose the same rigor when writing a text / documentation about some subjects.
 
@@ -23,33 +23,20 @@ This will allow me to write different types of content with some of the most use
 This gives the possibility to a very details roles permissions to handle all kind of contributors of your project.
 
 Th downside of it, is when you want new type of content, you will need developer to release your new type of content even if no specific features are needed aside adding some fields with no dependency between contents.
-When you chose a CMS, you will have to think about your database, the charge your website can handle, if you need cache on your webpage ...and so one.
-
-### How vemsy try to solve most of those issues
-
-Vemsy is a static website with the possibility to add features on it.
-Because it is a static website no database are needed, the content is written in makdown files.
-
-For those need Markdown solve most of them specially if you customize a little the css or use some that was done by other (Ex: [markdown-css-themes](https://github.com/jasonm23/markdown-css-themes) )
+When you chose a CMS, you will have to think about your database, the charge your website can handle, if you need cache on your webpage ... and so one.
 
 ## How to use it ?
 
-This package is not ready yet to be publish. It should be publish soon.
-Meanwhile it is possible to use it through the [development environment](./cli/.setup-folder/app/contents/DevEnv.md).
+Unfortunatly, there is no boilerplate available for the moment.
+Instead you can coppy the [example folder](./package/vemsy/example/)
 
-The project provide a library extending `express`, rendering **markdown** throught `twig` view template.
-
-The project provide as well a boilerplate through [generate-folders](https://www.npmjs.com/package/generate-folders) to deploy and install the setup folders.
-
-The website is served by default on the port [9999](http://localhost:9999)
+The [entry point](./package/vemsy/example/app/index.js) defined all the tasks loader that will be executed to [set up](https://github.com/jadok/middleware-setup) the application.
 
 ## Features
 
 The list of all the features currently available:
 
-- Render markdown files
-- Compile style files (sass / scss) and render it in the public folder
-- Routing inheritance ([more information](https://github.com/jadok/vemsy/blob/master/cli/.setup-folder/app/contents/theme/page))
-- Rich style definition by page ([more information](https://github.com/jadok/vemsy/blob/master/cli/.setup-folder/app/contents/theme/page#Style))
-- Style inheritance through matching paths
-- Use twig to render template
+- Render markdown files following folder structure
+- Task loading setup
+- Add your own express middlewares
+

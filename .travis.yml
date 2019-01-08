@@ -4,13 +4,11 @@ node_js:
   - "10"
 
 before_script:
-  - npm install -g nyc typedoc mocha coveralls ts-node
-  - npm run-script tslint
+  - npm install -g nyc mocha coveralls
 
 install:
   - npm install
-  - npm run-script build:cli
+  - npm run-script build
 
 after_script:
-  - npm run-script doc
-  - npm run-script coverage
+  - npm run-script test

@@ -1,10 +1,4 @@
-.vscode/
-alternative/
-alternative-tmp/
-cli/
-doc/
-src/
-tests/
-Dockerfile
-tslint.json
-run.sh
+.nyc_output
+example
+src
+test
