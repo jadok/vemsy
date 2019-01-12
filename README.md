@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/jadok/vemsy.svg?branch=master)](https://travis-ci.org/jadok/vemsy)
 [![Coverage Status](https://coveralls.io/repos/github/jadok/vemsy/badge.svg?branch=master)](https://coveralls.io/github/jadok/vemsy?branch=master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5798bfd75f7b46a292f52a205ede14c3)](https://app.codacy.com/app/quentin.jadeau/vemsy?utm_source=github.com&utm_medium=referral&utm_content=jadok/vemsy&utm_campaign=Badge_Grade_Dashboard)
 [![GitHub version](https://badge.fury.io/gh/jadok%2Fvemsy.svg)](https://badge.fury.io/gh/jadok%2Fvemsy)
 
 ## What is it ?
@@ -28,9 +27,9 @@ When you chose a CMS, you will have to think about your database, the charge you
 ## How to use it ?
 
 Unfortunatly, there is no boilerplate available for the moment.
-Instead you can coppy the [example folder](./package/vemsy/example/)
+Instead you can coppy the [example folder](./example/)
 
-The [entry point](./package/vemsy/example/app/index.js) defined all the tasks loader that will be executed to [set up](https://github.com/jadok/middleware-setup) the application.
+The [entry point](./example/app/index.js) defined all the tasks loader that will be executed to [set up](https://github.com/jadok/middleware-setup) the application.
 
 ## Features
 
