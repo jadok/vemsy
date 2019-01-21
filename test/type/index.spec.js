@@ -54,15 +54,15 @@ describe('Custom type checking', () => {
   it('Template type', () => {
     const te = new Template()
     const tmp = new Template('root')
-    assert(templateTypeCheck(te)).to.equal(true)
+    assert(templateTypeCheck(te) === true)
     assert(templateTypeCheck({}) === false)
-    assert(tmp.filename).to.equal('root')
+    assert(tmp.filename === 'root')
   })
 
   it('Page type', () => {
     const tmp = new Template('root')
-    const page = new Page('/sample', [], tmp)
-    assert(pageTypeCheck(page)).to.equal(true)
+    const page = new Page('/sample', tmp)
+    assert(pageTypeCheck(page) === true)
     assert(pageTypeCheck({}) === false)
   })
 })

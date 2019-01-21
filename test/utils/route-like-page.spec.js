@@ -53,7 +53,7 @@ describe('regex route', () => {
       const pages = test.routes.map(route => new Page(route))
       const routes = testRoutes(pages, test.path)
       expect(routes.length).to.equal(test.expect.length)
-      expect(arrayCompare(routes, test.expect)).to.equal(true)
+      expect(arrayCompare(routes.map((page => page.route)), test.expect)).to.equal(true)
     })
   })
 
