@@ -6,14 +6,14 @@ export default class extends Task {
   async execute() {
     const logger = winston.createLogger({
       transports: [
-          new winston.transports.File(app.configs.logs.winston.file),
-          new winston.transports.Console(app.configs.logs.winston.console)
+          new winston.transports.File(__app.configs.logs.winston.file),
+          new winston.transports.Console(__app.configs.logs.winston.console)
       ],
       exitOnError: false
     })
     logger.stream = {
       write: message => logger.info(message)
     }
-    app.server.use(morgan("combined", { "stream": logger.stream }))
+    __app.server.use(morgan("combined", { "stream": logger.stream }))
   }
 }

@@ -1,9 +1,13 @@
-import { addCustomTypes, t } from 'typy'
+import { t } from 'typy'
 
-import middlewareTypeCheck from './middleware.js'
+import Page from './page.js'
+import Template from './template.js'
 
-addCustomTypes({
-  isExpressMiddleware: middlewareTypeCheck
-})
+import './type.js'
+
+export const type = {
+  Page,
+  Template
+}
 
 export default t

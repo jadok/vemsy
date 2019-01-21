@@ -7,13 +7,13 @@ export default class extends Task {
   }
 
   async execute() {
-    if (typeof app.server === 'undefined') {
+    if (typeof __app.server === 'undefined') {
       throw new Error('Server not up.')
     }
     this.middlewares.forEach((middleware) => {
       t(middleware).isExpressMiddleware ?
-        app.server.use(middleware)
-        : app.server.use(middleware())
+        __app.server.use(middleware)
+        : __app.server.use(middleware())
     })
   }
 }

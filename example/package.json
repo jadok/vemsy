@@ -21,6 +21,6 @@
     "eslint": "^5.9.0"
   },
   "dependencies": {
-    "vemsy": "^0.0.2"
+    "vemsy": "file:.."
   }
 }

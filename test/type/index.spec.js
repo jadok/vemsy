@@ -3,6 +3,12 @@ import { assert } from 'chai'
 import t from '../../src/type/index.js'
 import getParamNames from '../../src/utils/func.js'
 
+import Page from '../../src/type/page.js'
+import pageTypeCheck from '../../src/type/page.type.js'
+
+import Template from '../../src/type/template.js'
+import templateTypeCheck from '../../src/type/template.type.js'
+
 describe('Custom type checking', () => {
   const errorNotMiddleware = 'Should not match an express middleware pattern'
   const errorMiddleware = (nbr) => 'Should not fail at ' + nbr + ' params'
@@ -43,5 +49,20 @@ describe('Custom type checking', () => {
   it('getParamNames edge cases', () => {
     assert(getParamNames('car').length === 0, errorNotParameter)
     assert(getParamNames({car:'mercedes'}).length === 0, errorNotParameter)
+  })
+
+  it('Template type', () => {
+    const te = new Template()
+    const tmp = new Template('root')
+    assert(templateTypeCheck(te)).to.equal(true)
+    assert(templateTypeCheck({}) === false)
+    assert(tmp.filename).to.equal('root')
+  })
+
+  it('Page type', () => {
+    const tmp = new Template('root')
+    const page = new Page('/sample', [], tmp)
+    assert(pageTypeCheck(page)).to.equal(true)
+    assert(pageTypeCheck({}) === false)
   })
 })

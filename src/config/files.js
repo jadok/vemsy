@@ -3,6 +3,6 @@ export default {
     "contents": "./app/contents",
     "public": "./public",
     "themes": "./app/themes",
-    "views": "./app/views"
+    "views": "views"
   }
 }

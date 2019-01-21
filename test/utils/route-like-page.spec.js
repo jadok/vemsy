@@ -1,23 +1,29 @@
 import { expect } from 'chai'
 import 'mocha'
 
+import Page from '../../src/type/page.js'
 import { arrayCompare } from '../../src/utils/array.js'
-import { descOrder, testRoutes } from '../../src/utils/route-like-page.js'
+import { descPageRouteOrder, testRoutes } from '../../src/utils/route-like-page.js'
 
 describe('regex route', () => {
-
-  it('descOrder negative', () => {
-    const result = descOrder([ 'a', 'a', 'a' ], []);
-    expect(result).to.equal(-3);
+  it('descPageRouteOrder negative', () => {
+    const page1 = new Page('/route')
+    const page2 = new Page('/route-long')
+    const result = descPageRouteOrder(page1, page2);
+    expect(result).to.equal(5);
   });
 
-  it('descOrder positive', () => {
-    const result = descOrder([], [ 'a', 'a', 'a' ]);
-    expect(result).to.equal(3);
+  it('descPageRouteOrder positive', () => {
+    const page1 = new Page('/route-long')
+    const page2 = new Page('/route')
+    const result = descPageRouteOrder(page1, page2);
+    expect(result).to.equal(-5);
   });
 
-  it('descOrder equal', () => {
-    const result = descOrder([ 'a', 'a', 'a' ], [ 'a', 'a', 'a' ]);
+  it('descPageRouteOrder equal', () => {
+    const page1 = new Page('/route-long')
+    const page2 = new Page('/route-long')
+    const result = descPageRouteOrder(page1, page2);
     expect(result).to.equal(0);
   });
 
@@ -44,7 +50,8 @@ describe('regex route', () => {
   ]
   routingTest.forEach((test) => {
     it('Routes test - ' + test.label, () => {
-      const routes = testRoutes(test.routes, test.path)
+      const pages = test.routes.map(route => new Page(route))
+      const routes = testRoutes(pages, test.path)
       expect(routes.length).to.equal(test.expect.length)
       expect(arrayCompare(routes, test.expect)).to.equal(true)
     })

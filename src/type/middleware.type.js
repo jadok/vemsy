@@ -11,7 +11,7 @@ const PARAMS_VALIDATOR = {
   next: ['next', undefined]
 }
 
-const middlewareTypeCheck = input => {
+const middlewareTypeCheck = (input) => {
   const params = getParamNames(input)
   if (PARAMS_VALIDATOR.req.indexOf(params[0]) === -1) {
     return false

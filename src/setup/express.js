@@ -3,6 +3,6 @@ import { Task } from 'middleware-setup'
 
 export default class extends Task {
   async execute() {
-    app.server = express()
+    __app.server = express()
   }
 }
