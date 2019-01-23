@@ -38,4 +38,4 @@ The list of all the features currently available:
 - Render markdown files following folder structure
 - Task loading setup
 - Add your own express middlewares
-
+- [Theme](./example/app/contents/README.md#Theme)
