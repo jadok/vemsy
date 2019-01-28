@@ -1,4 +1,4 @@
-const { middleware, runner, setup, Task } = require('vemsy')
+const { middleware, runner, setup } = require('vemsy')
 
 // convert the lists of setup which are objects in array values for the runner.
 const instances = [
@@ -12,7 +12,10 @@ const instances = [
   setup.express,
 
   // add logs to express
-  setup.logger
+  setup.logger,
+
+  setup.themeInit,
+  setup.themePages
 ].map((setupClass) => new setupClass())
 
 // add middlewares to express
@@ -20,7 +23,8 @@ instances.push(new setup.expressMiddleware([
   middleware.routingFile,
   middleware.data,
   middleware.markdown,
-  middleware.render
+  middleware.routingTheme,
+  middleware.renderTheme
 ]))
 
 // launch the app

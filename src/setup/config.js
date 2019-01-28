@@ -18,8 +18,9 @@ export default class extends Task {
         excludeDirs: /^\.(git|svn)$/
       })
 
-      global.app.configs = merge(coreConfigs, appConfigs)
-      global.app.configs.name = global.app.configs.name || require(join(process.cwd(), 'package.json')).name
+      global.__app.configs = merge(coreConfigs, appConfigs)
+      global.__app.configs.name = global.__app.configs.name
+        || require(join(process.cwd(), 'package.json')).name
     }
     catch (err) {
       throw new Error(err)

@@ -4,6 +4,9 @@ export const routingFileMiddleware = (
   if (typeof req.variables === 'undefined') {
     req.variables = {}
   }
+  if (typeof req.hidden_variables === 'undefined') {
+    req.hidden_variables = {}
+  }
   // use the middleware if no file extension is provided
   if (req.originalUrl.indexOf('.') === -1) {
     // generate a windows readable path
@@ -15,4 +18,4 @@ export const routingFileMiddleware = (
   return next()
 }
 
-export const configureMiddleware = () => routingFileMiddleware(app.configs.files.app_path.contents)
+export const configureMiddleware = () => routingFileMiddleware(__app.configs.files.app_path.contents)

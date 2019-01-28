@@ -1,6 +1,6 @@
 {
   "name": "vemsy",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "a markdown framework with express.",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
@@ -53,6 +53,7 @@
     "morgan": "^1.9.1",
     "path": "0.12.7",
     "path-to-regexp": "2.2.1",
+    "twig": "^1.13.1",
     "typy": "^3.0.0",
     "winston": "^3.0.0"
   }
