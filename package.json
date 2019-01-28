@@ -8,7 +8,7 @@
     "test": "npm run lint && npm run test:only && npm run cover",
     "test:only": "BABEL_ENV=test nyc ./node_modules/.bin/mocha --require @babel/register -r @babel/core test/**/*.spec.js --recursive",
     "cover": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
-    "build": "cross-env NODE_ENV=development rollup -c",
+    "build": "cross-env NODE_ENV=production rollup -c",
     "lint": "eslint src test"
   },
   "files": [
@@ -31,6 +31,7 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/register": "^7.0.0",
     "babel-eslint": "^10.0.1",
+    "babel-preset-minify": "^0.5.0",
     "chai": "^4.2.0",
     "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",

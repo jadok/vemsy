@@ -10,316 +10,64 @@ import fs from 'fs';
 import util from 'util';
 import markdown from 'markdown';
 
-var files = {
-  "app_path": {
-    "contents": "./app/contents",
-    "public": "./public",
-    "themes": "./app/themes",
-    "views": "views"
-  }
-};
+var files = {app_path:{contents:"./app/contents",public:"./public",themes:"./app/themes",views:"views"}};
 
-var logs = {
-  "winston": {
-    "file": {
-      "level": "info",
-      "filename": "./logs/app.log",
-      "handleExceptions": true,
-      "json": true,
-      "maxsize": 5242880,
-      "maxFiles": 5,
-      "colorize": false
-    },
-    "console": {
-      "level": "debug",
-      "handleExceptions": true,
-      "json": false,
-      "colorize": true
-    }
-  }
-};
+var logs = {winston:{file:{level:"info",filename:"./logs/app.log",handleExceptions:!0,json:!0,maxsize:5242880,maxFiles:5,colorize:!1},console:{level:"debug",handleExceptions:!0,json:!1,colorize:!0}}};
 
-const pathAppConfigs = join(process.cwd(), 'app', 'config');
-class config extends Task {
-  async execute() {
-    try {
-      const coreConfigs = {
-        files,
-        logs
-      };
-      const appConfigs = includesAll({
-        dirname: pathAppConfigs,
-        filter: /(.+)\.js$/,
-        excludeDirs: /^\.(git|svn)$/
-      });
-      global.__app.configs = merge(coreConfigs, appConfigs);
-      global.__app.configs.name = global.__app.configs.name || require(join(process.cwd(), 'package.json')).name;
-    } catch (err) {
-      throw new Error(err);
-    }
-  }
+const pathAppConfigs=join(process.cwd(),"app","config");class config extends Task{async execute(){try{const a=includesAll({dirname:pathAppConfigs,filter:/(.+)\.js$/,excludeDirs:/^\.(git|svn)$/});global.__app.configs=merge({files,logs},a),global.__app.configs.name=global.__app.configs.name||require(join(process.cwd(),"package.json")).name;}catch(a){throw new Error(a)}}}
 
-}
+class express$1 extends Task{async execute(){__app.server=express();}}
 
-class express$1 extends Task {
-  async execute() {
-    __app.server = express();
-  }
+class expressMiddleware extends Task{constructor(a){super(a),this.middlewares=a;}async execute(){if("undefined"==typeof __app.server)throw new Error("Server not up.");this.middlewares.forEach(a=>{t(a).isExpressMiddleware?__app.server.use(a):__app.server.use(a());});}}
 
-}
+class Page{constructor(a="",b=null,c=[],d=""){this.route=a,this.plugins=c,this.template=b,this.name=d;}}
 
-class expressMiddleware extends Task {
-  constructor(middlewares) {
-    super(middlewares);
-    this.middlewares = middlewares;
-  }
+class Template{constructor(a="",b=[]){this.filename=a,this.plugins=b;}}
 
-  async execute() {
-    if (typeof __app.server === 'undefined') {
-      throw new Error('Server not up.');
-    }
-
-    this.middlewares.forEach(middleware => {
-      t(middleware).isExpressMiddleware ? __app.server.use(middleware) : __app.server.use(middleware());
-    });
-  }
-
-}
-
-class Page {
-  constructor(route = '', template = null, plugins = [], name = '') {
-    this.route = route;
-    this.plugins = plugins;
-    this.template = template;
-    this.name = name;
-  }
-
-}
-
-class Template {
-  constructor(filename = '', plugins = []) {
-    this.filename = filename;
-    this.plugins = plugins;
-  }
-
-}
-
-const ARGUMENT_NAMES = /([^\s,]+)/g;
-const STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
-const STANDARD_FUNC_DEFINITION = /.*\)[\s]+{/mg;
-
-const isAnonymousSingleParameter = fnStr => {
-  const firstBracket = fnStr.indexOf('(') + 1;
-  const lastBracket = fnStr.indexOf(')');
-  const anonymousDefinition = fnStr.indexOf('=>');
-  const standardDefinition = fnStr.match(STANDARD_FUNC_DEFINITION);
-
-  if (anonymousDefinition === -1 && standardDefinition === null) {
-    return '';
-  }
-
-  if (anonymousDefinition !== -1 && (anonymousDefinition < lastBracket || lastBracket < 0)) {
-    return fnStr.slice(0, anonymousDefinition).trim();
-  }
-
-  return fnStr.slice(firstBracket, lastBracket);
-};
-
-const getParamNames = func => {
-  const fnStr = func.toString().replace(STRIP_COMMENTS, '');
-  const result = isAnonymousSingleParameter(fnStr).match(ARGUMENT_NAMES);
-  return result === null ? [] : result;
-};
+const ARGUMENT_NAMES=/([^\s,]+)/g,STRIP_COMMENTS=/((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg,STANDARD_FUNC_DEFINITION=/.*\)[\s]+{/mg,isAnonymousSingleParameter=a=>{const b=a.indexOf("(")+1,c=a.indexOf(")"),d=a.indexOf("=>"),e=a.match(STANDARD_FUNC_DEFINITION);return -1===d&&null===e?"":-1!==d&&(d<c||0>c)?a.slice(0,d).trim():a.slice(b,c)},getParamNames=a=>{const b=a.toString().replace(STRIP_COMMENTS,""),c=isAnonymousSingleParameter(b).match(ARGUMENT_NAMES);return null===c?[]:c};
 
 /**
  * Some people implements express middleware with differents form express middleware.
  * Some due to their code style don't write parameter name if the parameter is not used
  *  - like (, res)
- */
+ */const PARAMS_VALIDATOR={req:["","req","request"],res:["","res","response",void 0],next:["next",void 0]},middlewareTypeCheck=a=>{const b=getParamNames(a);return -1!==PARAMS_VALIDATOR.req.indexOf(b[0])&&-1!==PARAMS_VALIDATOR.res.indexOf(b[1])&&-1!=PARAMS_VALIDATOR.next.indexOf(b[2])};
 
-const PARAMS_VALIDATOR = {
-  req: ['', 'req', 'request'],
-  res: ['', 'res', 'response', undefined],
-  next: ['next', undefined]
-};
+const templateTypeCheck=a=>a instanceof Template&&a.plugins.reduce((a,b)=>a&&middlewareTypeCheck(b),!0)&&"string"==typeof a.filename;
 
-const middlewareTypeCheck = input => {
-  const params = getParamNames(input);
+const pageTypeCheck=a=>a.template instanceof Template&&templateTypeCheck(a.template)&&a.plugins.reduce((a,b)=>a&&middlewareTypeCheck(b),!0)&&"string"==typeof a.route;
 
-  if (PARAMS_VALIDATOR.req.indexOf(params[0]) === -1) {
-    return false;
-  }
+addCustomTypes({isExpressMiddleware:middlewareTypeCheck,isPage:pageTypeCheck,isTemplate:templateTypeCheck});
 
-  if (PARAMS_VALIDATOR.res.indexOf(params[1]) === -1) {
-    return false;
-  }
+const type={Page,Template};
 
-  return PARAMS_VALIDATOR.next.indexOf(params[2]) != -1;
-};
+class globalLibrary extends Task{async execute(){global.t=t$1;}}
 
-const templateTypeCheck = input => {
-  return input instanceof Template && input.plugins.reduce((acc, currPlugins) => acc && middlewareTypeCheck(currPlugins), true) && typeof input.filename === "string";
-};
+class lift extends Task{async execute(){// Set process title
+// Bind server to port
+__app.title=process.env.APP_NAME||__app.configs.name||"",console.log(__app.title,"Lifting..."),__app.server.set("port",__app.configs.port||1337),__app.server.listen(__app.server.get("port"));}}
 
-const pageTypeCheck = input => {
-  return input.template instanceof Template && templateTypeCheck(input.template) && input.plugins.reduce((acc, currPlugins) => acc && middlewareTypeCheck(currPlugins), true) && typeof input.route === "string";
-};
+const filePathToPath=a=>join(process.cwd(),...a.split("/"));
 
-addCustomTypes({
-  isExpressMiddleware: middlewareTypeCheck,
-  isPage: pageTypeCheck,
-  isTemplate: templateTypeCheck
-});
+class themeInit extends Task{async execute(){global.__app.theme={motor:__app.configs.files.theme_motor,name:__app.configs.files.theme_name};const a=filePathToPath(__app.configs.files.app_path.themes+"/"+__app.configs.files.theme_name+"/"+__app.configs.files.app_path.views);__app.server.set("twig options",{allow_async:!0,// Allow asynchronous compiling
+strict_variables:!1}),__app.server.set("views",a),__app.server.set("view engine",__app.theme.motor);}}
 
-const type = {
-  Page,
-  Template
-};
+const includesAll$1=require("include-all");class themePages extends Task{async execute(){const a=join(__app.configs.files.app_path.themes+"/"+__app.configs.files.theme_name),b={...global.__app},c=includesAll$1({dirname:a,filter:/(.+)\.js$/,excludeDirs:/^\.(git|svn)$/});global.__app=b,global.__app.theme.pages=Object.keys(c.pages).map(a=>(c.pages[a].name=a,c.pages[a]));}}
 
-class globalLibrary extends Task {
-  async execute() {
-    global.t = t$1;
-  }
+class logger extends Task{async execute(){const a=createLogger({transports:[new transports.File(__app.configs.logs.winston.file),new transports.Console(__app.configs.logs.winston.console)],exitOnError:!1});a.stream={write:b=>a.info(b)},__app.server.use(morgan("combined",{stream:a.stream}));}}
 
-}
+global.__app={};var setup = {config,express: express$1,expressMiddleware,globalLibrary,lift,logger,themeInit,themePages};
 
-class lift extends Task {
-  async execute() {
-    // Set process title
-    __app.title = process.env.APP_NAME || __app.configs.name || '';
-    console.log(__app.title, 'Lifting...'); // Bind server to port
+const asyncHandler=a=>(b,c,d)=>Promise.resolve(a(b,c,d)).catch(d);
 
-    __app.server.set('port', __app.configs.port || 1337);
+const readFile=util.promisify(fs.readFile),dataMiddleware=async(a,b,c)=>{if(!a.variables.file)return c();try{const b=a.variables.file,c=await readFile(filePathToPath(b),"utf-8");a.variables.data=c;}catch(b){console.error(b,a.variables,a.variables.file),a.variables.data="";}return c()};var data = asyncHandler(dataMiddleware);
 
-    __app.server.listen(__app.server.get('port'));
-  }
+const markdownMiddleware=(a,b,c)=>{if("undefined"!=typeof a.variables.data){const b=markdown.markdown.toHTML(a.variables.data.toString());a.variables.markdown=b;}return c()};var markdown$1 = asyncHandler(markdownMiddleware);
 
-}
+const renderMiddleware=(a,b)=>{"undefined"==typeof a.variables.markdown?(b.status(404),b.send("Error file not found")):(b.set("Content-Type","text/html"),b.send(a.variables.markdown));};
 
-const filePathToPath = filePath => join(process.cwd(), ...filePath.split('/'));
+const renderTemplateMiddleware=(a,b)=>{const c=a.hidden_variables.pages[0].template.filename+".html.twig";b.render(c,a.variables);};
 
-class themeInit extends Task {
-  async execute() {
-    global.__app.theme = {
-      motor: __app.configs.files.theme_motor,
-      name: __app.configs.files.theme_name
-    };
-    const viewDir = filePathToPath(__app.configs.files.app_path.themes + '/' + __app.configs.files.theme_name + '/' + __app.configs.files.app_path.views);
-
-    __app.server.set("twig options", {
-      allow_async: true,
-      // Allow asynchronous compiling
-      strict_variables: false
-    });
-
-    __app.server.set('views', viewDir);
-
-    __app.server.set('view engine', __app.theme.motor); // register the template engine
-
-  }
-
-}
-
-const includesAll$1 = require('include-all');
-class themePages extends Task {
-  async execute() {
-    const themePagesDir = join(__app.configs.files.app_path.themes + '/' + __app.configs.files.theme_name);
-    const tmpApp = { ...global.__app
-    };
-    const pages = includesAll$1({
-      dirname: themePagesDir,
-      filter: /(.+)\.js$/,
-      excludeDirs: /^\.(git|svn)$/
-    });
-    global.__app = tmpApp;
-    global.__app.theme.pages = Object.keys(pages.pages).map(pageName => {
-      pages.pages[pageName].name = pageName;
-      return pages.pages[pageName];
-    });
-  }
-
-}
-
-class logger extends Task {
-  async execute() {
-    const logger = createLogger({
-      transports: [new transports.File(__app.configs.logs.winston.file), new transports.Console(__app.configs.logs.winston.console)],
-      exitOnError: false
-    });
-    logger.stream = {
-      write: message => logger.info(message)
-    };
-
-    __app.server.use(morgan("combined", {
-      "stream": logger.stream
-    }));
-  }
-
-}
-
-global.__app = {};
-var setup = {
-  config,
-  express: express$1,
-  expressMiddleware,
-  globalLibrary,
-  lift,
-  logger,
-  themeInit,
-  themePages
-};
-
-const asyncHandler = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
-
-const readFile = util.promisify(fs.readFile);
-
-const dataMiddleware = async (req, res, next) => {
-  if (!req.variables.file) {
-    return next();
-  }
-
-  try {
-    const filePath = req.variables.file;
-    const data = await readFile(filePathToPath(filePath), 'utf-8');
-    req.variables.data = data;
-  } catch (e) {
-    console.error(e, req.variables, req.variables.file);
-    req.variables.data = '';
-  }
-
-  return next();
-};
-
-var data = asyncHandler(dataMiddleware);
-
-const markdownMiddleware = (req, res, next) => {
-  if (typeof req.variables.data !== 'undefined') {
-    const rendered = markdown.markdown.toHTML(req.variables.data.toString());
-    req.variables.markdown = rendered;
-  }
-
-  return next();
-};
-
-var markdown$1 = asyncHandler(markdownMiddleware);
-
-const renderMiddleware = (req, res) => {
-  if (typeof req.variables.markdown !== 'undefined') {
-    res.set('Content-Type', 'text/html');
-    res.send(req.variables.markdown);
-  } else {
-    res.status(404);
-    res.send('Error file not found');
-  }
-};
-
-const renderTemplateMiddleware = (req, res) => {
-  const template = req.hidden_variables.pages[0].template.filename + '.html.twig';
-  res.render(template, req.variables);
-};
-
-const descPageRouteOrder = (a, b) => b.route.length - a.route.length;
-/**
+const descPageRouteOrder=(c,a)=>a.route.length-c.route.length;/**
  * Get the list of defined path matching the route.
  *
  * @param {string[]} pages
@@ -329,67 +77,14 @@ const descPageRouteOrder = (a, b) => b.route.length - a.route.length;
  *
  * @return
  *   list of defined path matching the route
- */
+ */const testRoutes=(a,b)=>{const c=a.reduce((a,c)=>{const d=new RegExp(c.route),e=d.test(b);return e&&a.push(c),a},[]);return c.sort(descPageRouteOrder)};
 
-const testRoutes = (pages, route) => {
-  const matchingRoutes = pages.reduce((acc, page) => {
-    const reg = new RegExp(page.route);
-    const t = reg.test(route);
+const routingTheme=(a,b,c)=>("undefined"!=typeof a.hidden_variables&&(a.hidden_variables.pages=testRoutes(__app.theme.pages,a.path)),c());
 
-    if (t) {
-      acc.push(page);
-    }
+const routingFileMiddleware=a=>(b,c,d)=>("undefined"==typeof b.variables&&(b.variables={}),"undefined"==typeof b.hidden_variables&&(b.hidden_variables={}),-1===b.originalUrl.indexOf(".")?b.variables.file=a+b.originalUrl.toString()+".md":b.variables.assetFile=b.originalUrl.toString(),d());const configureMiddleware=()=>routingFileMiddleware(__app.configs.files.app_path.contents);
 
-    return acc;
-  }, []);
-  return matchingRoutes.sort(descPageRouteOrder);
-};
+var middleware = {data,markdown: markdown$1,render: renderMiddleware,renderTheme: renderTemplateMiddleware,routingFile:configureMiddleware,routingTheme};
 
-const routingTheme = (req, res, next) => {
-  if (typeof req.hidden_variables !== 'undefined') {
-    req.hidden_variables.pages = testRoutes(__app.theme.pages, req.path);
-  }
-
-  return next();
-};
-
-const routingFileMiddleware = viewPath => (req, res, next) => {
-  if (typeof req.variables === 'undefined') {
-    req.variables = {};
-  }
-
-  if (typeof req.hidden_variables === 'undefined') {
-    req.hidden_variables = {};
-  } // use the middleware if no file extension is provided
-
-
-  if (req.originalUrl.indexOf('.') === -1) {
-    // generate a windows readable path
-    req.variables.file = viewPath + req.originalUrl.toString() + '.md';
-  } else {
-    req.variables.assetFile = req.originalUrl.toString();
-  }
-
-  return next();
-};
-const configureMiddleware = () => routingFileMiddleware(__app.configs.files.app_path.contents);
-
-var middleware = {
-  data,
-  markdown: markdown$1,
-  render: renderMiddleware,
-  renderTheme: renderTemplateMiddleware,
-  routingFile: configureMiddleware,
-  routingTheme
-};
-
-var index = {
-  middleware,
-  runner,
-  setup,
-  type,
-  Task
-};
+var index = {middleware,runner,setup,type,Task};
 
 export default index;
-//# sourceMappingURL=index.esm.js.map
