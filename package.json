@@ -1,6 +1,6 @@
 {
   "name": "vemsy",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "a markdown framework with express.",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
