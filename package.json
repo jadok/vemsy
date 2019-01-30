@@ -1,6 +1,6 @@
 {
   "name": "vemsy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "a markdown framework with express.",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
@@ -8,7 +8,7 @@
     "test": "npm run lint && npm run test:only && npm run cover",
     "test:only": "BABEL_ENV=test nyc ./node_modules/.bin/mocha --require @babel/register -r @babel/core test/**/*.spec.js --recursive",
     "cover": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
-    "build": "cross-env NODE_ENV=production rollup -c",
+    "build": "cross-env NODE_ENV=development rollup -c",
     "lint": "eslint src test"
   },
   "files": [
