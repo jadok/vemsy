@@ -18,7 +18,7 @@ Another use case that might appear is when you have repeated category of subject
 ### CMS
 
 In case I want to write something bigger, with more people working on it, I will probably chose to use a CMS.
-This will allow me to write different types of content with some of the most used features of a rich text edition thanks to [WYSIWYG](https://en.wikipedia.org/wiki/WYSIWYG).
+This will allow me to write different types of content with some of the most used features of a Rich Text Edition thanks to [WYSIWYG](https://en.wikipedia.org/wiki/WYSIWYG).
 This gives the possibility to a very details roles permissions to handle all kind of contributors of your project.
 
 Th downside of it, is when you want new type of content, you will need developer to release your new type of content even if no specific features are needed aside adding some fields with no dependency between contents.
@@ -27,16 +27,10 @@ When you chose a CMS, you will have to think about your database, the charge you
 ### How vemsy try to solve most of those issues
 
 Vemsy is a static website with the possibility to add features on it.
-Because it is a static website no database are needed, the content is written in makdown files.
+Because it is a static website no database are needed, the content is written in markdown files.
 
-For those need Markdown solve most of them specially if you customize a little the css or use some that was done by other (Ex: [markdown-css-themes](https://github.com/jasonm23/markdown-css-themes))
-
-## How to use it
-
-Unfortunately, there is no boilerplate available for the moment.
-Instead you can copy the [example folder](./example/)
-
-The [entry point](./example/app/index.js) defined all the tasks loader that will be executed to [set up](https://github.com/jadok/middleware-setup) the application.
+For those need Markdown solve most of them specially if you customize a little the css or use some that was done by other
+_Ex: [markdown-css-themes](https://github.com/jasonm23/markdown-css-themes)_
 
 ## Features
 
@@ -46,4 +40,16 @@ The list of all the features currently available:
 - Task loading setup
 - Add your own express middlewares
 - [Theme](./example/app/contents/README.md#Theme)
-- Route based feature / customization ([Page](), Template)
+- Route based feature / customization (Page, Template)
+
+## How to use it
+
+Unfortunately, there is no boilerplate available for the moment.
+Instead you can copy the [example folder](./example/)
+
+The [entry point](./example/app/index.js) defined all the tasks loader that will be executed to [set up](https://github.com/jadok/middleware-setup) the application.
+
+### I want to know more
+
+The technical documentation is filled in the example folder: [./example/app/contents/](./example/app/contents/)
+If you execute the example the documentation is available through a vemsy server on [http://localhost:1337/README](http://localhost:1337/README)

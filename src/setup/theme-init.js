@@ -13,10 +13,13 @@ export default class extends Task {
       + '/' + __app.configs.files.theme_name
       + '/' + __app.configs.files.app_path.views
     )
-    __app.server.set("twig options", {
-      allow_async: true, // Allow asynchronous compiling
-      strict_variables: false
-    });
+
+    if (__app.theme.motor === 'twig') {
+      __app.server.set("twig options", {
+        allow_async: true, // Allow asynchronous compiling
+        strict_variables: false
+      });
+    }
     __app.server.set('views', viewDir);
     __app.server.set('view engine', __app.theme.motor); // register the template engine
   }
