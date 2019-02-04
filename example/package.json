@@ -21,6 +21,6 @@
     "eslint": "^5.9.0"
   },
   "dependencies": {
-    "vemsy": "^0.1.1"
+    "vemsy": "^0.2.0"
   }
 }

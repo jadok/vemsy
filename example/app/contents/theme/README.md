@@ -2,8 +2,8 @@
 
 Theme gives the possibility to configure with route based [middleware](#middleware), [setup](#setup).
 
-## [middleware](./middleware/README.md)
+## [middleware](./middleware/)
 
-## [setup](./setup/README.md)
+## [setup](./setup/)
 
-## [type](./type/README.md)
+## [type](./type/)

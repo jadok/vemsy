@@ -11,10 +11,10 @@ You have 2 possibilities to add a custom express middleware by adding it to the 
 
 ## List of express middlewares
 
-### [data](./data.md)
+### [data](./data)
 
-### [markdown](./markdown.md)
+### [markdown](./markdown)
 
-### [render](./render.md)
+### [render](./render)
 
-### [routing file](./routing-file.md)
+### [routing file](./routing-file)

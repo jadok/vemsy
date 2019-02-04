@@ -7,18 +7,18 @@ The tasks setup data in the `global.__app`
 
 ## List of Tasks
 
-### [Config](./config.md)
+### [Config](./config)
 
-### [Express](./express.md)
+### [Express](./express)
 
-### [Express middlewares](./express-middleware.md)
+### [Express middlewares](./express-middleware)
 
-### [Global library](./global-library.md)
+### [Global library](./global-library)
 
-### [Lift](./lift.md)
+### [Lift](./lift)
 
-### [Logger](./loggger.md)
+### [Logger](./loggger)
 
-### [Theme init](../theme/setup/theme-init.md)
+### [Theme init](../theme/setup/theme-init)
 
-### [Theme pages](../theme/setup/theme-pages.md)
+### [Theme pages](../theme/setup/theme-pages)

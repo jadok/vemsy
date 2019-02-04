@@ -4,6 +4,6 @@
 
 ## List of types
 
-### [page](./page.md)
+### [page](./page)
 
-### [template](./template.md)
+### [template](./template)
