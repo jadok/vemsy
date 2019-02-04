@@ -15,6 +15,11 @@
   "files": [
     "dist"
   ],
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jadok/vemsy.git"
@@ -31,12 +36,16 @@
     "@babel/node": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/register": "^7.0.0",
+    "@commitlint/cli": "^7.5.0",
+    "@commitlint/config-conventional": "^7.5.0",
     "babel-eslint": "^10.0.1",
     "babel-preset-minify": "^0.5.0",
     "chai": "^4.2.0",
+    "conventional-changelog-cli": "^2.0.11",
     "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
     "eslint": "^5.9.0",
+    "husky": "^1.3.1",
     "mocha": "^5.2.0",
     "node-mocks-http": "^1.7.3",
     "nyc": "^13.1.0",
