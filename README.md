@@ -52,4 +52,4 @@ The [entry point](./example/app/index.js) defined all the tasks loader that will
 ### I want to know more
 
 The technical documentation is filled in the example folder: [./example/app/contents/](./example/app/contents/)
-If you execute the example the documentation is available through a vemsy server on [http://localhost:1337/README](http://localhost:1337/README)
+If you execute the example the documentation is available through a vemsy server on [http://localhost:1337](http://localhost:1337)

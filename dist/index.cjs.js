@@ -210,11 +210,13 @@ class themeInit extends middlewareSetup.Task {
     };
     const viewDir = filePathToPath(__app.configs.files.app_path.themes + '/' + __app.configs.files.theme_name + '/' + __app.configs.files.app_path.views);
 
-    __app.server.set("twig options", {
-      allow_async: true,
-      // Allow asynchronous compiling
-      strict_variables: false
-    });
+    if (__app.theme.motor === 'twig') {
+      __app.server.set("twig options", {
+        allow_async: true,
+        // Allow asynchronous compiling
+        strict_variables: false
+      });
+    }
 
     __app.server.set('views', viewDir);
 
@@ -357,7 +359,8 @@ const routingTheme = (req, res, next) => {
   return next();
 };
 
-const routingFileMiddleware = viewPath => (req, res, next) => {
+const stat = util.promisify(fs.stat);
+const routingFileMiddleware = viewPath => async (req, res, next) => {
   if (typeof req.variables === 'undefined') {
     req.variables = {};
   }
@@ -369,7 +372,14 @@ const routingFileMiddleware = viewPath => (req, res, next) => {
 
   if (req.originalUrl.indexOf('.') === -1) {
     // generate a windows readable path
-    req.variables.file = viewPath + req.originalUrl.toString() + '.md';
+    req.variables.file = viewPath + req.originalUrl.toString();
+
+    try {
+      const stats = await stat(req.variables.file + '/');
+      req.variables.file = stats.isDirectory() ? path.join(viewPath + req.originalUrl.toString(), 'README.md') : viewPath + req.originalUrl.toString() + '.md';
+    } catch (e) {
+      req.variables.file = viewPath + req.originalUrl.toString() + '.md';
+    }
   } else {
     req.variables.assetFile = req.originalUrl.toString();
   }

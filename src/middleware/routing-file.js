@@ -1,6 +1,12 @@
+import fs from 'fs'
+import { join } from 'path'
+import util from 'util'
+
+const stat = util.promisify(fs.stat)
+
 export const routingFileMiddleware = (
   viewPath
-) => (req, res, next) => {
+) => async (req, res, next) => {
   if (typeof req.variables === 'undefined') {
     req.variables = {}
   }
@@ -10,7 +16,17 @@ export const routingFileMiddleware = (
   // use the middleware if no file extension is provided
   if (req.originalUrl.indexOf('.') === -1) {
     // generate a windows readable path
-    req.variables.file = viewPath + req.originalUrl.toString() + '.md'
+    req.variables.file = viewPath + req.originalUrl.toString()
+    try {
+      const stats = await stat(req.variables.file + '/')
+      req.variables.file = stats.isDirectory() ?
+        join(viewPath + req.originalUrl.toString(), 'README.md')
+        : viewPath + req.originalUrl.toString() + '.md'
+    }
+    catch (e) {
+      req.variables.file = viewPath + req.originalUrl.toString() + '.md'
+    }
+
   }
   else {
     req.variables.assetFile = req.originalUrl.toString()
