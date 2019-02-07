@@ -11,10 +11,10 @@ You have 2 possibilities to add a custom express middleware by adding it to the 
 
 ## List of express middlewares
 
+It is possible to use any [express middlewares](https://www.npmjs.com/search?q=keywords%3Amiddleware%2Cexpress), down there some examples.
+
 ### [data](./data)
 
 ### [markdown](./markdown)
-
-### [render](./render)
 
 ### [routing file](./routing-file)
