@@ -38,6 +38,7 @@ The list of all the features currently available:
 
 - Render markdown files following folder structure
 - Task loading setup
+- You standard [express middlewares](https://www.npmjs.com/search?q=keywords%3Amiddleware%2Cexpress) to custom your app
 - Add your own express middlewares
 - [Theme](./example/app/contents/README.md#Theme)
 - Route based feature / customization (Page, Template)
