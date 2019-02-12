@@ -8,13 +8,13 @@ export default class IStyleManager {
    * @return
    *   True if the file is compiled by this class.
    */
-  isMatchedExtension(filename);
+  isMatchedExtension = filename => false
 
 
   /**
    * List of matching extensions.
    */
-  matchExtensions = [];
+  matchExtensions = []
 
   /**
    * Compile the files to the public path
@@ -26,7 +26,7 @@ export default class IStyleManager {
    * @param publicPath
    *   public folder where the output file will be distributed.
    */
-  compile(fileDirs, srcTheme, publicPath)
+  compile = async (fileDirs, srcTheme, publicPath) => null
 
   /**
    * Retrive the public path of the file compiled.
@@ -34,5 +34,5 @@ export default class IStyleManager {
    * @param filename
    *   filename
    */
-  renderUrl(filename)
+  renderUrl = filename => filename
 }

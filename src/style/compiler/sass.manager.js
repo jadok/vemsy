@@ -1,19 +1,33 @@
 import { join } from 'path'
 
-import { sassCompile } from './sass-compiler.js'
+import { sassCompile } from './sass.compiler.js'
 import IStyleManager from './istyle-manager.js'
 
 export default class SassStyle extends IStyleManager {
-  matchExtensions = ['sass', 'scss']
+  constructor(props) {
+    super(props)
+    this.matchExtensions = ['sass', 'scss']
+  }
 
   /**
    * Check if the file is a sass file.
    *
    * @inheritdoc
    */
-  isMatchedExtension(filename) {
+  isMatchedExtension = (filename) => {
     const extension = filename.slice(filename.indexOf('.') + 1)
     return this.matchExtensions.includes(extension)
+  }
+
+  destinationCompiledFile = (fileDirs, publicPath) => {
+    const fullFileName = fileDirs[fileDirs.length - 1]
+    const distPath = join(publicPath, 'css', ...fileDirs.slice(0, fileDirs.length - 1))
+    const filename = fullFileName.split('.')[0]
+    const dist = join(distPath, filename + '.css')
+    return {
+      fullFileName,
+      dist
+    }
   }
 
   /**
@@ -21,18 +35,15 @@ export default class SassStyle extends IStyleManager {
    *
    * @inheritdoc
    */
-  compile(fileDirs, srcTheme, publicPath) {
-    const fullFileName = fileDirs[fileDirs.length - 1]
-    const distPath = join(publicPath, 'css', ...fileDirs.slice(0, fileDirs.length - 1))
-    const filename = fullFileName.split('.')[0]
-    const dist = join(distPath, filename + '.css')
-    sassCompile(fullFileName, srcTheme, dist)
+  compile = async (fileDirs, srcTheme, publicPath) => {
+    const output = this.destinationCompiledFile(fileDirs, publicPath)
+    return sassCompile(output.fullFileName, srcTheme, output.dist)
   }
 
   /**
    * @inheritdoc
    */
-  resolver(filename) {
+  resolver = (filename) => {
     return join(
       '/',
       'css',
