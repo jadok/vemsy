@@ -1,6 +1,6 @@
 import { join } from 'path'
 
-import SassCompiler from './sass-compiler.js'
+import SassManager from './sass/manager.js'
 
 export default class StyleManager {
 
@@ -14,7 +14,7 @@ export default class StyleManager {
    * Defined all the compiler.
    */
   setCompilers() {
-    this.compilers.push(new SassCompiler())
+    this.compilers.push(new SassManager())
   }
 
   /**
@@ -28,7 +28,7 @@ export default class StyleManager {
     const srcTheme = join(this.themePath, ...fileDirs.slice(0, fileDirs.length - 1))
     const matchedCompilers = this.compilers
       .reduce((acc, curr) => {
-        if (curr.matchExtension(filename)) {
+        if (curr.isMatchedExtension(filename)) {
           return [curr]
         }
         return acc
@@ -50,7 +50,7 @@ export default class StyleManager {
   resolver(filename) {
     return this.compilers
       .reduce((acc, curr) => {
-        if (curr.matchExtension(filename)) {
+        if (curr.isMatchedExtension(filename)) {
           return curr.resolver(filename)
         }
         return acc

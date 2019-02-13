@@ -1,7 +1,7 @@
 import { join } from 'path'
 
-import { sassCompile } from './sass.compiler.js'
-import IStyleManager from './istyle-manager.js'
+import { sassCompile } from './compiler.js'
+import IStyleManager from '../istyle-manager.js'
 
 export default class SassStyle extends IStyleManager {
   constructor(props) {
