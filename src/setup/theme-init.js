@@ -6,7 +6,8 @@ export default class extends Task {
   async execute() {
     global.__app.theme = {
       motor: __app.configs.files.theme_motor,
-      name: __app.configs.files.theme_name
+      name: __app.configs.files.theme_name,
+      style: { config: __app.configs.files.theme_style },
     }
     const viewDir = filePathToPath(
       __app.configs.files.app_path.themes

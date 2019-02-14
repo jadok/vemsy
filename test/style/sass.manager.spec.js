@@ -11,22 +11,17 @@ describe('style manager', () => {
   const publicPath = join(__dirname, '..', 'fixtures')
 
   const manager = new StyleManager(themePath, publicPath)
-
+  manager.compilers.push(new SassStyle())
   it('should test constructor', () => {
     expect(manager.themePath).to.equal(themePath)
     expect(manager.publicPath).to.equal(publicPath)
   })
 
-  it('should check the compiler(s) set', () => {
-    manager.setCompilers()
-    expect(manager.compilers.length).to.equal(1)
-    expect(manager.compilers[0] instanceof SassStyle).to.equal(true)
-  })
-
   it('should check compile', () => {
     const matchedCompilers = manager.compile('main.scss')
-    expect(matchedCompilers.length).to.equal(1)
-    expect(matchedCompilers[0] instanceof SassStyle).to.equal(true)
+    matchedCompilers
+      .then(() => expect(true).to.equal(true))
+      .catch(err => expect(err).to.equal(false))
   })
 
   it('should resolve compiled file', () => {
