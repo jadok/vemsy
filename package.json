@@ -9,7 +9,6 @@
     "test:only": "BABEL_ENV=test nyc ./node_modules/.bin/mocha --require @babel/register -r @babel/core test/**/*.spec.js --recursive",
     "cover": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
     "build": "cross-env NODE_ENV=development rollup -c",
-    "build:example": "cd example && npm i && node app/index.js",
     "lint": "eslint src test"
   },
   "files": [
