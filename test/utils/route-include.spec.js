@@ -19,7 +19,7 @@ describe('route include', () => {
   })
 
   res.forEach((page) => {
-    const pagePath = path.join(__dirname, '..', 'fixtures', page)
+    const pagePath = path.join(__dirname, '..', 'fixtures', page.name)
     it('should check if the page path exist for the path: ' + pagePath, () => {
       expect(fs.lstatSync(pagePath).isFile()).to.equal(true)
     })

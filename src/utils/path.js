@@ -1,9 +1,13 @@
 import { join } from 'path'
 
-const filePathToPath = (filePath) =>
+export const filePathToPath = (filePath) =>
   join(process.cwd(), ...filePath.split('/'))
 
-// get template path from page.
-const
+export const getAssetPathFromPage = (pagePath, assetFilename) => {
+  const assetFilenameSplitted = assetFilename.split('/')
+  return (assetFilename.startsWith('/') ?
+    join(...assetFilenameSplitted)
+    : join(pagePath, ...assetFilenameSplitted))
+}
 
 export default filePathToPath

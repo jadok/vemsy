@@ -22,7 +22,7 @@ const cycle = (data, currentPath, set) => {
  * @param {Array} set
  *   set Data if validate is OK.
  */
-const routeInclude = (data, set = []) =>
+const routeInclude = (data, set) =>
   cycle(data, '', set)
 
 export default routeInclude
