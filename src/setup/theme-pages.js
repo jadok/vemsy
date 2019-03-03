@@ -2,6 +2,8 @@ const includesAll = require('include-all')
 import { Task } from 'middleware-setup'
 import { join } from 'path'
 
+import { routeInclude } from '../utils/route-include.js'
+
 export default class extends Task {
   async execute() {
     const themePagesDir = join(
@@ -11,13 +13,11 @@ export default class extends Task {
     const tmpApp = { ...global.__app }
     const pages = includesAll({
       dirname: themePagesDir,
-      filter: /(.+)\.js$/,
+      filter: /(.+.page)\.js$/,
       excludeDirs: /^\.(git|svn)$/
     })
     global.__app = tmpApp
-    global.__app.theme.pages = Object.keys(pages.pages).map((pageName) => {
-      pages.pages[pageName].name = pageName
-      return pages.pages[pageName]
-    })
+    global.__app.theme.pages = []
+    routeInclude(pages, global.__app.theme.pages)
   }
 }

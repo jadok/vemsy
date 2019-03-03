@@ -1,6 +1,13 @@
 import { join } from 'path'
 
-const filePathToPath = (filePath) =>
+export const filePathToPath = (filePath) =>
   join(process.cwd(), ...filePath.split('/'))
+
+export const getAssetPathFromPage = (pagePath, assetFilename) => {
+  const assetFilenameSplitted = assetFilename.split('/')
+  return (assetFilename.startsWith('/') ?
+    join(...assetFilenameSplitted)
+    : join(pagePath, ...assetFilenameSplitted))
+}
 
 export default filePathToPath

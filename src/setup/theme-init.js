@@ -11,7 +11,6 @@ export default class extends Task {
     const viewDir = filePathToPath(
       __app.configs.files.app_path.themes
       + '/' + __app.configs.files.theme_name
-      + '/' + __app.configs.files.app_path.views
     )
 
     if (__app.theme.motor === 'twig') {
