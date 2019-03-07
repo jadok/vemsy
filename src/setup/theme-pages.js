@@ -2,7 +2,7 @@ const includesAll = require('include-all')
 import { Task } from 'middleware-setup'
 import { join } from 'path'
 
-import { routeInclude } from '../utils/route-include.js'
+import routeInclude from '../utils/route-include.js'
 
 export default class extends Task {
   async execute() {
