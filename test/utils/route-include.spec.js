@@ -5,7 +5,7 @@ require('mocha')
 
 import routeInclude from '../../src/utils/route-include.js'
 
-describe('route include', () => {
+describe('route include', async () => {
   const pages = require('include-all')({
     dirname: path.join(__dirname, '..', 'fixtures'),
     excludeDirs: /^\.(git|svn)$/,
@@ -20,6 +20,7 @@ describe('route include', () => {
 
   res.forEach((page) => {
     const pagePath = path.join(__dirname, '..', 'fixtures', page.name)
+    console.log(page.name)
     it('should check if the page path exist for the path: ' + pagePath, () => {
       expect(fs.lstatSync(pagePath).isFile()).to.equal(true)
     })

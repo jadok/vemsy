@@ -28,7 +28,7 @@ describe('getAssetPathFromPage', () => {
       label: 'asset with relative path',
       test: {
         file: 'sample',
-        current: 'plop'
+        current: '/plop/plop.page'
       },
       expect: path.join('plop', 'sample'),
     },
@@ -36,7 +36,7 @@ describe('getAssetPathFromPage', () => {
       label: 'asset with absolute path',
       test: {
         file: '/sample',
-        current: 'plop'
+        current: '/plop/plop.page'
       },
       expect: path.join('sample'),
     }

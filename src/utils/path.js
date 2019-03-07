@@ -5,9 +5,10 @@ export const filePathToPath = (filePath) =>
 
 export const getAssetPathFromPage = (pagePath, assetFilename) => {
   const assetFilenameSplitted = assetFilename.split('/')
+  const pageSplitted = pagePath.split('/')
   return (assetFilename.startsWith('/') ?
     join(...assetFilenameSplitted)
-    : join(pagePath, ...assetFilenameSplitted))
+    : join(pageSplitted.slice(1, pageSplitted.length - 1).join('/'), ...assetFilenameSplitted))
 }
 
 export default filePathToPath
