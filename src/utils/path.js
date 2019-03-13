@@ -4,6 +4,7 @@ export const filePathToPath = (filePath) =>
   join(process.cwd(), ...filePath.split('/'))
 
 export const getAssetPathFromPage = (pagePath, assetFilename) => {
+  console.log('Assets: ', pagePath, assetFilename)
   const assetFilenameSplitted = assetFilename.split('/')
   const pageSplitted = pagePath.split('/')
   return (assetFilename.startsWith('/') ?
