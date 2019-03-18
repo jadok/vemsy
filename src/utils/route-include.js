@@ -1,8 +1,9 @@
+import { sep } from 'path'
 
 const cycle = (data, currentPath, set) => {
   const dataProperties = Object.keys(data)
   dataProperties.forEach((dataKey) => {
-    const dataKeyPath = currentPath + '/' + dataKey
+    const dataKeyPath = currentPath ? currentPath + sep + dataKey : dataKey
     if (dataKey.endsWith('.page')) {
       // set
       data[dataKey].name = dataKeyPath
@@ -15,7 +16,7 @@ const cycle = (data, currentPath, set) => {
 }
 
 /**
- * 
+ *
  * @param {Object} data
  *   Json with instance object from 'include-all'
  *

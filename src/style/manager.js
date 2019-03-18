@@ -1,4 +1,4 @@
-import { join } from 'path'
+import { dirname, join } from 'path'
 
 export default class StyleManager {
 
@@ -15,8 +15,7 @@ export default class StyleManager {
    *  filename to be compiled.
    */
   async compile(filename) {
-    const fileDirs = filename.split('/')
-    const srcTheme = join(this.themePath, ...fileDirs.slice(0, fileDirs.length - 1))
+    const srcTheme = join(this.themePath, dirname(filename))
     const matchedCompilers = this.compilers
       .reduce((acc, curr) => {
         if (curr.isMatchedExtension(filename)) {
@@ -25,7 +24,7 @@ export default class StyleManager {
         return acc
       }, [])
       .map((compiler) =>
-        compiler.compile(fileDirs, srcTheme, this.publicPath))
+        compiler.compile(filename, srcTheme, this.publicPath))
     return matchedCompilers
   }
 

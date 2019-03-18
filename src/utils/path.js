@@ -1,15 +1,10 @@
-import { join } from 'path'
-
-export const filePathToPath = (filePath) =>
-  join(process.cwd(), ...filePath.split('/'))
+import { isAbsolute, dirname, sep } from 'path'
 
 export const getAssetPathFromPage = (pagePath, assetFilename) => {
   console.log('Assets: ', pagePath, assetFilename)
-  const assetFilenameSplitted = assetFilename.split('/')
-  const pageSplitted = pagePath.split('/')
-  return (assetFilename.startsWith('/') ?
-    join(...assetFilenameSplitted)
-    : join(pageSplitted.slice(1, pageSplitted.length - 1).join('/'), ...assetFilenameSplitted))
+  return (isAbsolute(assetFilename) ?
+    assetFilename.slice(1)
+    : dirname(pagePath) + sep + assetFilename)
 }
 
 export default filePathToPath

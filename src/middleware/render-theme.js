@@ -1,4 +1,5 @@
 import { getAssetPathFromPage } from '../utils/path.js'
+import { getRealPathStylesFromActivePages } from '../style/page.js'
 import { testRoutes } from '../utils/route-like-page.js'
 
 const renderTemplateMiddleware = (req, res, next) => {
@@ -8,6 +9,10 @@ const renderTemplateMiddleware = (req, res, next) => {
     const template = getAssetPathFromPage(
       pageRendered.name,
       pageRendered.template.filename + pageRendered.template.extension
+    )
+    req.variables.styles = getRealPathStylesFromActivePages(
+      __app.theme.style.manager,
+      req.hidden_variables.pages
     )
     res.render(template, req.variables)
     return
