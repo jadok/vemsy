@@ -16,7 +16,8 @@ export default class SassStyle extends IStyleManager {
    * @inheritdoc
    */
   isMatchedExtension = (filename) => {
-    const extension = extname(filename)
+    // remove '.' from extname return
+    const extension = extname(filename).slice(1)
     return this.matchExtensions.includes(extension)
   }
 
@@ -39,7 +40,6 @@ export default class SassStyle extends IStyleManager {
   compile = async (fullFileName, srcTheme, publicPath) => {
     const output = this.destinationCompiledFile(fullFileName, publicPath)
     fs.mkdirSync(output.distPath, { recursive: true })
-    console.log('--------------Generate dir: ', output.distPath)
     return sassCompile(output.fullFileName, srcTheme, output.dist)
   }
 

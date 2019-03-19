@@ -15,7 +15,7 @@ export default class StyleManager {
    *  filename to be compiled.
    */
   async compile(filename) {
-    const srcTheme = join(this.themePath, dirname(filename))
+    // const srcTheme = join(this.themePath, dirname(filename))
     const matchedCompilers = this.compilers
       .reduce((acc, curr) => {
         if (curr.isMatchedExtension(filename)) {
@@ -24,7 +24,7 @@ export default class StyleManager {
         return acc
       }, [])
       .map((compiler) =>
-        compiler.compile(filename, srcTheme, this.publicPath))
+        compiler.compile(filename, this.themePath, this.publicPath))
     return matchedCompilers
   }
 
