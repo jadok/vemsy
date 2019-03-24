@@ -1,10 +1,10 @@
 import * as fs from 'fs'
 import { expect } from 'chai'
 import 'mocha'
+import { resolve } from 'path'
 import httpMocks from 'node-mocks-http'
 
 import dataMiddleware from '../../src/middleware/data.js'
-import filePathToPath from '../../src/utils/path.js'
 
 describe('middlewares - data', () => {
   it('should find a file and read it', async () => {
@@ -20,7 +20,7 @@ describe('middlewares - data', () => {
     return dataMiddleware(request, response, () => null)
       .then(() => {
         fs.readFile(
-          filePathToPath(request.variables.file),
+          resolve(request.variables.file),
           (err, content) => {
             expect(typeof request.variables !== 'undefined').to.equal(true)
             expect(typeof request.variables.file !== 'undefined').to.equal(true)
@@ -49,7 +49,7 @@ describe('middlewares - data', () => {
     return dataMiddleware(request, response, () => null)
       .then(() => {
         fs.readFile(
-          filePathToPath(request.variables.file),
+          resolve(request.variables.file),
           () => {
             expect(typeof request.variables !== 'undefined').to.equal(true)
             expect(typeof request.variables.file !== 'undefined').to.equal(true)

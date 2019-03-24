@@ -1,25 +1,8 @@
 const { expect } = require('chai')
 const path = require('path')
-const fs = require('fs')
 require('mocha')
 
-const { filePathToPath, getAssetPathFromPage } = require('../../src/utils/path.js')
-
-describe('filePathToPath', () => {
-  const current_dir = process.cwd()
-  const testSample = [
-    {
-      label: 'should match path',
-      path: '/test/utils/path.spec.js',
-      expect: path.join(current_dir, 'test', 'utils', 'path.spec.js')
-    }
-  ]
-  testSample.forEach((test) => {
-    it(test.label, () => {
-      expect(filePathToPath(test.path)).to.equal(test.expect)
-    })
-  })
-})
+const { getAssetPathFromPage } = require('../../src/utils/path.js')
 
 describe('getAssetPathFromPage', () => {
 
