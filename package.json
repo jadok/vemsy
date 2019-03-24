@@ -6,7 +6,7 @@
   "module": "./dist/index.esm.js",
   "scripts": {
     "test": "npm run lint && npm run test:only && npm run cover",
-    "test:only": "BABEL_ENV=test nyc ./node_modules/.bin/mocha --require @babel/register -r @babel/core test/**/*.spec.js --recursive",
+    "test:only": "cross-env BABEL_ENV=test nyc ./node_modules/.bin/mocha --require @babel/register -r @babel/core test/**/*.spec.js --recursive",
     "cover": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
     "build": "cross-env NODE_ENV=development rollup -c",
     "build:prod": "cross-env NODE_ENV=production rollup -c",
@@ -34,8 +34,8 @@
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.3.4",
     "@babel/node": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/preset-env": "^7.3.4",
-    "@babel/plugin-proposal-class-properties": "^7.3.0",
     "@babel/register": "^7.0.0",
     "@commitlint/cli": "^7.5.2",
     "@commitlint/config-conventional": "^7.5.0",
