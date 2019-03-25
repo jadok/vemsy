@@ -5,5 +5,3 @@ export const getAssetPathFromPage = (pagePath, assetFilename) => {
     assetFilename.slice(1)
     : dirname(pagePath) + sep + assetFilename)
 }
-
-export default filePathToPath
