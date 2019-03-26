@@ -41,10 +41,9 @@ describe('Sass Style', () => {
 
   const testsOutput = [
     {
-      fileDirs: ['feature', 'index.scss'],
+      fileDirs: join('feature', 'index.scss'),
       publicPath: 'home/username/public',
       expect: {
-        fullFileName: 'index.scss',
         dist: join('home', 'username', 'public', 'css', 'feature', 'index.css')
       }
     }
@@ -54,7 +53,7 @@ describe('Sass Style', () => {
     it('destinationCompiledFile - ' + test.fileDirs.toString(), () => {
       const res = sassStyle.destinationCompiledFile(test.fileDirs, test.publicPath)
       expect(res.fullFileName)
-        .to.equal(test.expect.fullFileName)
+        .to.equal(test.fileDirs)
       expect(res.dist)
         .to.equal(test.expect.dist)
     })
