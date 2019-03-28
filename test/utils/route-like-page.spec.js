@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import 'mocha'
 
 import Page from '../../src/type/page.js'
-import { arrayCompare } from '../../src/utils/array.js'
+import '../../src/utils/array.js'
 import { descPageRouteOrder, testRoutes } from '../../src/utils/route-like-page.js'
 
 describe('regex route', () => {
@@ -53,7 +53,7 @@ describe('regex route', () => {
       const pages = test.routes.map(route => new Page(route))
       const routes = testRoutes(pages, test.path)
       expect(routes.length).to.equal(test.expect.length)
-      expect(arrayCompare(routes.map((page => page.route)), test.expect)).to.equal(true)
+      expect(routes.map(page => page.route).compare(test.expect)).to.equal(true)
     })
   })
 

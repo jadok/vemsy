@@ -1,1 +1,3 @@
-export const clone = orig => Object.assign(Object.create(Object.getPrototypeOf(orig)), orig)
+Object.prototype.cloneCustom = function () {
+  return Object.assign(Object.create(Object.getPrototypeOf(this)), this)
+}
