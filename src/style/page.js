@@ -1,4 +1,4 @@
-import { arrayUnique } from '../utils/array.js'
+import '../utils/array.js'
 import { getAssetPathFromPage } from '../utils/path.js'
 import '../utils/object.js'
 
@@ -12,7 +12,8 @@ export const compileStyleFilesFromPages = async (manager, pages) => {
       styleFiles.push(getAssetPathFromPage(page.name, page.globalStyle.file))
     }
   })
-  const compilerPromises = arrayUnique(styleFiles)
+  const compilerPromises = styleFiles
+    .unique()
     .map((styleFile) => manager.compile(styleFile))
   return Promise.all(compilerPromises)
 }
