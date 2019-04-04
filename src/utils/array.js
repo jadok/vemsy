@@ -1,26 +1,34 @@
+/**
+ * List of filter functions
+ */
 const filters = {
   onlyUnique: (value, index, self) => self.indexOf(value) === index
 }
 
-export const arrayUnique = arr => arr.filter(filters.onlyUnique)
+// Add Array prototype
+
+/**
+ * Get unique values in the array.
+ */
+Array.prototype.unique = function () {
+  return this.filter(filters.onlyUnique)
+}
 
 /**
  * Compare 2 arrays.
  *
- * @param arr1
- *   first array
- * @param arr2
- *   second array
+ * @param {array} arr
+ *   Array to compare
  *
- * @return {boolean}
- *   True if the 2 arrays are equalds.
+ * @return {bool}
+ *   true if each values of the arrays are equals
  */
-export const arrayCompare = (arr1, arr2) => {
-  if (arr1.length !== arr2.length) {
+Array.prototype.compare = function (arr) {
+  if (this.length !== arr.length) {
     return false
   }
-  return arr1.reduce((acc, curr, index) => {
-    if (curr !== arr2[index]) {
+  return this.reduce((acc, curr, index) => {
+    if (curr !== arr[index]) {
       return false
     }
     return acc

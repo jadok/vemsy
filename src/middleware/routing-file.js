@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { join } from 'path'
+import { join, sep } from 'path'
 import util from 'util'
 
 const stat = util.promisify(fs.stat)
@@ -18,10 +18,10 @@ export const routingFileMiddleware = (
     // generate a windows readable path
     req.variables.file = viewPath + req.originalUrl.toString()
     try {
-      const stats = await stat(req.variables.file + '/')
+      const stats = await stat(req.variables.file + sep)
       req.variables.file = stats.isDirectory() ?
-        join(viewPath + req.originalUrl.toString(), 'README.md')
-        : viewPath + req.originalUrl.toString() + '.md'
+        join(viewPath, req.originalUrl.toString(), 'README.md')
+        : join(viewPath, req.originalUrl.toString() + '.md')
     }
     catch (e) {
       req.variables.file = viewPath + req.originalUrl.toString() + '.md'

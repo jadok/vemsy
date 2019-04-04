@@ -7,6 +7,7 @@ import Page from '../../src/type/page.js'
 import pageTypeCheck from '../../src/type/page.type.js'
 
 import Template from '../../src/type/template.js'
+import TwigTemplate from '../../src/type/twig-template.js'
 import templateTypeCheck from '../../src/type/template.type.js'
 
 describe('Custom type checking', () => {
@@ -57,6 +58,15 @@ describe('Custom type checking', () => {
     assert(templateTypeCheck(te) === true)
     assert(templateTypeCheck({}) === false)
     assert(tmp.filename === 'root')
+  })
+
+  it('TwigTemplate type', () => {
+    const te = new TwigTemplate()
+    const tmp = new TwigTemplate('root')
+    assert(templateTypeCheck(te) === true)
+    assert(templateTypeCheck({}) === false)
+    assert(tmp.filename === 'root')
+    assert(tmp.extension === '.html.twig')
   })
 
   it('Page type', () => {

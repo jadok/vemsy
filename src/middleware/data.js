@@ -1,7 +1,7 @@
 import fs from 'fs'
 import util from 'util'
+import { resolve } from 'path'
 
-import filePathToPath from '../utils/path.js'
 import asyncHandler from '../utils/async.js'
 
 const readFile = util.promisify(fs.readFile)
@@ -12,7 +12,7 @@ const dataMiddleware = async (req, res, next) => {
   }
   try {
     const filePath = req.variables.file
-    const data = await readFile(filePathToPath(filePath), 'utf-8')
+    const data = await readFile(resolve(process.cwd(), filePath), 'utf-8')
     req.variables.data = data
   }
   catch (e) {

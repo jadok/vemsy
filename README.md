@@ -45,12 +45,18 @@ The list of all the features currently available:
 
 ## How to use it
 
-Unfortunately, there is no boilerplate available for the moment.
-Instead you can copy the [example folder](./example/)
+A boilerplate has been made with a cli [vemsy-cli](https://www.npmjs.com/package/vemsy-cli).
+You can use it like that:
+`npm install -g vemsy-cli`
+`vemsy new <my-project-name>`
+`cd <my-project-name>`
+`node app/index.js`
 
-The [entry point](./example/app/index.js) defined all the tasks loader that will be executed to [set up](https://github.com/jadok/middleware-setup) the application.
+The entry point is defined in your `./my-project-name/app/index.js` defined all the tasks loader that will be executed to [set up](https://github.com/jadok/middleware-setup) the application.
+
+The cli install the [example folder](https://github.com/jadok/vemsy-cli/tree/master/template)
 
 ### I want to know more
 
-The technical documentation is filled in the example folder: [./example/app/contents/](./example/app/contents/)
+The technical documentation is filled in the setup folder: __./my-project-name/app/contents/__ or [./my-project-name/app/contents/](https://github.com/jadok/vemsy-cli/tree/master/template/app/contents)
 If you execute the example the documentation is available through a vemsy server on [http://localhost:1337](http://localhost:1337)

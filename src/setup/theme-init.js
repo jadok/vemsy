@@ -1,16 +1,17 @@
 import { Task } from 'middleware-setup'
-
-import filePathToPath from '../utils/path.js'
+import { resolve } from 'path'
 
 export default class extends Task {
   async execute() {
     global.__app.theme = {
       motor: __app.configs.files.theme_motor,
-      name: __app.configs.files.theme_name
+      name: __app.configs.files.theme_name,
+      style: { config: __app.configs.files.theme_style },
     }
-    const viewDir = filePathToPath(
-      __app.configs.files.app_path.themes
-      + '/' + __app.configs.files.theme_name
+    const viewDir = resolve(
+      process.cwd(),
+      __app.configs.files.app_path.themes,
+      __app.configs.files.theme_name
     )
 
     if (__app.theme.motor === 'twig') {

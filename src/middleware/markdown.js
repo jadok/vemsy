@@ -1,4 +1,4 @@
-import markdown from 'markdown'
+const markdown = require('markdown')
 import asyncHandler from '../utils/async.js'
 
 const markdownMiddleware = (req, res, next) => {
