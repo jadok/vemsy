@@ -11,7 +11,7 @@ export default class extends Task {
    *   In this array of array the sub array is the list of arguments for the plugin.
    *   The first one is the the plugin, the second one is the option of the plugin.
    */
-  constructor(plugins) {
+  constructor(plugins = []) {
     super(plugins)
     this.plugins = plugins
   }
@@ -26,7 +26,7 @@ export default class extends Task {
       linkify: false,  // Autoconvert URL-like text to links
       typographer: false
     });
-    plugins.forEach((plugin) => {
+    this.plugins.forEach((plugin) => {
       if (plugin && plugin.length) {
         __app.markdown.use(...plugin)
       }

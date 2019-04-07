@@ -14,6 +14,7 @@ const renderTemplateMiddleware = (req, res, next) => {
       __app.theme.style.manager,
       req.hidden_variables.pages
     )
+    console.log('Template:_', template)
     res.render(template, req.variables)
     return
   }
