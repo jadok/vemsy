@@ -4,6 +4,15 @@ import { sassCompile } from './compiler.js'
 import IStyleManager from '../istyle-manager.js'
 import fs from 'fs'
 
+const mkdirPromise = folder => new Promise((resolve, reject) => {
+  fs.mkdir(folder, { recursive: true }, (err) => {
+    if (err) {
+      reject(err)
+    }
+    resolve()
+  })
+})
+
 export default class SassStyle extends IStyleManager {
   constructor(props) {
     super(props)
@@ -39,8 +48,8 @@ export default class SassStyle extends IStyleManager {
    */
   compile = async (fullFileName, srcTheme, publicPath) => {
     const output = this.destinationCompiledFile(fullFileName, publicPath)
-    fs.mkdirSync(output.distPath, { recursive: true })
-    return sassCompile(output.fullFileName, srcTheme, output.dist)
+    return mkdirPromise(output.distPath)
+      .then(() => sassCompile(output.fullFileName, srcTheme, output.dist))
   }
 
   /**
