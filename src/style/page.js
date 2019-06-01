@@ -30,7 +30,7 @@ export const getRealPathStylesFromActivePages = (manager, pages) => {
       const cloneStyle = page.style.cloneCustom()
       cloneStyle.file = manager.resolver(getAssetPathFromPage(page.name, page.globalStyle.file))
       styleFiles.push(cloneStyle)
-      return false // break
+      return false
     }
     return true
   })
