@@ -3,6 +3,7 @@ import express from './express.js'
 import expressMiddleware from './express-middleware.js'
 import globalLibrary from './global-library.js'
 import lift from './lift.js'
+import markdown from './markdown.js'
 import themeInit from './theme-init.js'
 import themePages from './theme-pages.js'
 import themeStyle from './theme-style.js'
@@ -18,6 +19,7 @@ export default {
   globalLibrary,
   lift,
   logger,
+  markdown,
   themeInit,
   themePages,
   themeStyle,

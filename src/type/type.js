@@ -1,11 +1,13 @@
 import { addCustomTypes } from 'typy'
 
-import middlewareTypeCheck from './middleware.type.js'
 import pageTypeCheck from './page.type.js'
+import styleTypeCheck from './style.type.js'
 import templateTypeCheck from './template.type.js'
+import middlewareTypeCheck from './middleware.type.js'
 
 addCustomTypes({
-  isExpressMiddleware: middlewareTypeCheck,
   isPage: pageTypeCheck,
-  isTemplate: templateTypeCheck
+  isStyle: styleTypeCheck,
+  isTemplate: templateTypeCheck,
+  isExpressMiddleware: middlewareTypeCheck,
 })

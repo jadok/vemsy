@@ -6,6 +6,9 @@ import getParamNames from '../../src/utils/func.js'
 import Page from '../../src/type/page.js'
 import pageTypeCheck from '../../src/type/page.type.js'
 
+import Style from '../../src/type/style.js'
+import styleTypeCheck from '../../src/type/style.type.js'
+
 import Template from '../../src/type/template.js'
 import TwigTemplate from '../../src/type/twig-template.js'
 import templateTypeCheck from '../../src/type/template.type.js'
@@ -74,5 +77,13 @@ describe('Custom type checking', () => {
     const page = new Page('/sample', tmp)
     assert(pageTypeCheck(page) === true)
     assert(pageTypeCheck({}) === false)
+  })
+
+  it('Style type', () => {
+    const style = new Style('sample.scss')
+    const style2 = new Style('sample.scss', 'only screen and (min-width: 768px)', 'preload')
+    assert(styleTypeCheck(style) === true)
+    assert(styleTypeCheck(style2) === true)
+    assert(styleTypeCheck({}) === false)
   })
 })

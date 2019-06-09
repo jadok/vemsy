@@ -1,5 +1,7 @@
 import { Task } from 'middleware-setup'
 
+import { normalizeMiddlewares, plugMiddlewares } from '../utils/middleware.js'
+
 export default class extends Task {
   constructor(middlewares) {
     super(middlewares)
@@ -10,10 +12,7 @@ export default class extends Task {
     if (typeof __app.server === 'undefined') {
       throw new Error('Server not up.')
     }
-    this.middlewares.forEach((middleware) => {
-      t(middleware).isExpressMiddleware ?
-        __app.server.use(middleware)
-        : __app.server.use(middleware())
-    })
+    const normalizedMiddlewares = normalizeMiddlewares(this.middlewares)
+    return plugMiddlewares(__app.server, normalizedMiddlewares)
   }
 }
