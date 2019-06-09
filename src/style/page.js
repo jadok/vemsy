@@ -2,7 +2,7 @@ import '../utils/array.js'
 import { getAssetPathFromPage } from '../utils/path.js'
 import '../utils/object.js'
 
-export const compileStyleFilesFromPages = async (manager, pages) => {
+export const getStyleAssetsFromPages = (pages) => {
   const styleFiles = []
   pages.forEach((page) => {
     if (page.style) {
@@ -12,9 +12,12 @@ export const compileStyleFilesFromPages = async (manager, pages) => {
       styleFiles.push(getAssetPathFromPage(page.name, page.globalStyle.file))
     }
   })
-  const compilerPromises = styleFiles
+  return styleFiles
     .unique()
-    .map((styleFile) => manager.compile(styleFile))
+}
+
+export const compileStyleFiles = async (manager, styles) => {
+  const compilerPromises = styles.map((styleFile) => manager.compile(styleFile))
   return Promise.all(compilerPromises)
 }
 
@@ -34,5 +37,5 @@ export const getRealPathStylesFromActivePages = (manager, pages) => {
     }
     return true
   })
-  return styleFiles
+  return styleFiles.unique()
 }
