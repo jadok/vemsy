@@ -11,7 +11,7 @@ export default class extends Task {
     // wait that all the style files are compiled
     try {
       const styles = getStyleAssetsFromPages(global.__app.theme.pages)
-      await compileStyleFiles(__app.theme.style.manager, style)
+      await compileStyleFiles(__app.theme.style.manager, styles)
     }
     catch (err) {
       console.error(chalk.red(err))
